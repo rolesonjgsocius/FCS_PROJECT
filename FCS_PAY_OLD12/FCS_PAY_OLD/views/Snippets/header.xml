@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="FCS_PAY_custom_header" inherit_id="website.snippet_options">
+        <xpath expr="//we-select[@data-variable='header-template']" position="inside">
+            <we-button title="Custom_Header" data-name="Custom_Header"
+                       data-customize-website-views="FCS_PAY_OLD.FCS_PAY_Header"
+                       data-customize-website-variable="'FCS_header'"
+                       data-img="FCS_PAY_OLD/static/src/images/FCS-CC-Logo 1.png"/>
+        </xpath>
+    </template>
+    <template id="FCS_PAY_Header" inherit_id="website.layout" name="FCS_PAY_OLD" active="False">
+        <xpath expr="//header" position="replace">
+         <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title> FCS_PAY_OLD </title>
+
+            <link rel="shortcut icon" type="image/x-icon" href="/FCS_PAY_OLD/static/src/images/279 [Converted] 1(1).ico"/>
+
+    <meta name="description" content="FCS_PAY_OLD"/>
+
+
+
+</head>
+            <link rel="preconnect" href="https://fonts.googleapis.com/"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet"/>
+<!--            <link rel="stylesheet" href="/FCS_PAY_OLD/static/src/theme/swiper.min.css"/>-->
+<!--            <link rel="stylesheet" href="/FCS_PAY_OLD/static/src/css/headandfootstyle.css"/>-->
+            <style>
+                .o_searchbar_form{
+display: flex;
+  gap: 10px;
+                }
+
+<!--                 .o_searchbar_form button{-->
+<!--display: flex;-->
+<!--  gap: 10px;-->
+<!--                background: #3662FF;-->
+<!--                border: none;-->
+<!--                align-items: center;-->
+<!--                }-->
+
+                .button_serach_custom{
+                display: flex;
+  gap: 10px;
+                background: #3662FF;
+                border: none;
+                align-items: center;
+                }
+                .button_serach_custom:hover{
+                background: #3662FF;
+
+                }
+                  .popupheader {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 50px; /* Adjust as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 15px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+       border-radius: 15px;
+        z-index: 1000;
+    }
+
+    .popupheader.active {
+        display: block; /* Show when active */
+    }
+                .header_FCS_Func{
+                display:flex;
+                align-items:center;
+                }
+                 .header_FCS_Func >  a  > img{
+        height: 22px;
+  margin-right: 35px;
+                cursor:pointer;
+                }  .header_FCS_Func >  a  {
+                margin-right: 0px !important;
+                }
+                .header_FCS_Func > div{
+                   display:flex;
+                align-items:center;
+                justify-content:center;
+                }
+                  .header_FCS_Func > div:nth-of-type(1) button{
+                font-family: "Poppins", serif;
+          background: #3662FF;
+  border-radius: 5px;
+  padding: 5px 25px;
+  border: none;
+  color: white;
+  font-size: 15px;
+                  margin-right: 10px;
+                }
+                 .header_FCS_Func > div:nth-of-type(2) button{
+                font-family: "Poppins", serif;
+          background: #3662FF;
+
+  border-radius: 5px;
+  padding: 5px 25px;
+  border: none;
+  color: white;
+  font-size: 15px;
+  margin-right: 10px;
+                }
+                .lexylelogo img{
+                width: 65px;
+
+                }
+                .lexylelogo{
+                position: absolute;
+                top: 10px;
+                left: 50px;
+                }
+                /* Base styles for the header */
+                .headerdiv {
+                animation: slideFadeIn 0.5s ease-in-out;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 25px;
+
+                position: relative;
+                background: white;
+                padding-left: 15%;
+                z-index: 100;
+                }
+
+                /* Styles for the links */
+                .headerdiv a {
+
+                margin-right: 60px;
+                color: black;
+           font-family: "Poppins", serif;
+                text-decoration: none;
+                transition: color 0.3s, background 0.3s;
+                }
+
+                /* Hide the toggle button on larger screens */
+                .toggle-button {
+                display: none;
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 1);
+                font-size: 24px;
+                cursor: pointer;
+                outline: none;
+                    color: black;
+                }
+  .disresplinks{
+                display:none;
+                }
+
+
+                    @media (min-width: 768px){
+                 .header_FCS_Func{
+               margin-right: 7%;
+                }
+                }
+
+                @media (min-width: 992px) {
+                 .centerspecificlinks{
+                 margin-right: 5px !important;
+    margin-left: 55px !important;
+                }
+                .links-header-custom a:nth-of-type(4){
+                        margin-right: 5px !important;
+    margin-left: 55px !important;
+                }
+                }
+
+                /* Styles for smaller screens */
+                @media (max-width: 768px) {
+<!--                .headerdiv > div{-->
+<!--                    width: 100vw !important;-->
+<!--                }-->
+                .links-header-custom{
+                      padding-top: 50px;
+                width: 100vw;
+                }
+                .links-header-custom a:nth-of-type(1){
+
+                }
+                 .header_FCS_Func{
+                display:none;
+                align-items:center;
+                }
+                .disresplinks{
+                display:block;
+                }
+                .lexylelogo img{
+    width: 40px;
+                }
+
+                .headerdiv {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0px;
+                position: relative;
+                overflow: hidden;
+<!--                    min-height: 100px;-->
+                transition: max-height 0.5s ease-in-out;
+                position: absolute;
+                z-index: 3;
+                width: 100%;
+                }
+
+                .headerdiv a {
+                display: none;
+                margin: 10px 0;
+<!--                background: #111827;-->
+                padding: 7px;
+                border-radius: 5px;
+                width: 100%;
+                transition: all 0.3s ease;
+                }
+
+                .headerdiv.active {
+                max-height: 368px; /* Adjust based on the number of links */
+                }
+
+                .headerdiv.active a {
+                display: block;
+                animation: fadeIn 0.3s ease forwards;
+                }
+
+                .headerdiv a:hover {
+                background: white;
+                color: rgb(4, 1, 108);
+                transform: scale(1.05);
+                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+                }
+
+                .toggle-button {
+                display: block;
+                margin-bottom: 10px;
+                align-self: end;
+                padding-right: 20px;
+                padding-top: 10px;
+                position: absolute !important;
+  right: 0px !important;
+  top: 0px !important;
+                }
+                }
+
+                /* Slide and Fade-in Animation */
+                @keyframes slideFadeIn {
+                0% {
+                transform: translateX(-100%);
+                opacity: 0;
+                }
+                100% {
+                transform: translateX(0);
+                opacity: 1;
+                }
+                }
+
+                /* Fade-in animation for links */
+                @keyframes fadeIn {
+                0% {
+                opacity: 0;
+                transform: translateY(-10px);
+                }
+                100% {
+                opacity: 1;
+                transform: translateY(0);
+                }
+                }
+
+                /* Close Animation */
+                .headerdiv.closing {
+                max-height: 60px;
+                transition: max-height 0.5s ease-in-out;
+                }
+            </style>
+            <div style="display:relative">
+                <div class="headerdiv">
+                    <div class="lexylelogo">
+                        <a href="/">
+                            <img src="/FCS_PAY_OLD/static/src/images/FCS-CC-Logo 1.png"/>
+                        </a>
+                    </div>
+                    <button class="toggle-button" onclick="toggleMenu()">☰</button>
+                    <div class="links-header-custom">
+                        <a class="centerspecificlinks" href="#">Business</a>
+                        <a class="centerspecificlinks" href="#">Merchants</a>
+                        <a  class="centerspecificlinks" href="#">About Us</a>
+                         <a class="disresplinks" href="/web/login">Sign In</a>
+                       <!-- <t t-set="user_info" t-value="request.env['res.users'].clear_caches()"/>
+                        <ul class="nav navbar-nav navbar-expand ms-auto order-last order-lg-0">
+                            <t t-set="is_connected" t-value="not user_id._is_public()"/>
+                            <li class="nav-item dropdown ms-3 o_no_autohide_item" t-if="is_connected">
+                                <a href="#" role="button" data-bs-toggle="dropdown" class="dropdown-toggle nav-link"
+                                   style="display:flex !important; justify-content: center !important;align-items: center !important;">
+                                    &lt;!&ndash;&lt;!&ndash;                                    <img src="" width="50px" class="me-2 ms-2"/>&ndash;&gt;&ndash;&gt;
+                                    <span t-if="user_id" class="fw-bold text-black">
+                                        <t t-esc="user_id.name[:23] + '...' if user_id.name and len(user_id.name) &gt; 25 else user_id.name"/>
+                                    </span>
+                                </a>
+                                <div role="menu" class="dropdown-menu js_usermenu dropdown-menu-end position-absolute">
+                                    <a href="/web" role="menuitem" class="dropdown-item ps-3 d-none"
+                                       id="o_backend_user_dropdown_link" data-oe-model="ir.ui.view" data-oe-id="399"
+                                       data-oe-field="arch" data-oe-xpath="/t[1]/t[1]/li[1]/div[1]/a[1]">
+                                        <i class="fa fa-fw fa-th me-1 small text-muted"></i>
+                                        Apps
+                                    </a>
+                                    <a href="/my/account" role="menuitem" class="dropdown-item ps-3" data-oe-id="417"
+                                       data-oe-xpath="/data/xpath/a" data-oe-model="ir.ui.view" data-oe-field="arch">
+                                        <i class="fa fa-fw fa-id-card-o me-1 small text-muted"></i>
+                                        My Account
+                                    </a>
+                                    <div id="o_logout_divider" class="dropdown-divider" data-oe-model="ir.ui.view"
+                                         data-oe-id="399" data-oe-field="arch"
+                                         data-oe-xpath="/t[1]/t[1]/li[1]/div[1]/div[1]"></div>
+                                    <a role="menuitem" id="o_logout" class="dropdown-item ps-3"
+                                       data-oe-model="ir.ui.view" data-oe-id="399" data-oe-field="arch"
+                                       data-oe-xpath="/t[1]/t[1]/li[1]/div[1]/a[2]"
+                                       href="/web/session/logout?redirect=/">
+                                        <i class="fa fa-fw fa-sign-out me-1 small text-muted"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                            <t t-else="">
+                                <li class="nav-item sign_in_rms"
+                                    style="display: flex;justify-content: center;align-items: center;">
+                                    <img src="/phyt/static/src/img/icons/user_img.png" width="37px" height="37px"/>
+                                    <a href="/web/login" class="nav-link disresplinks" style="color: #fff;">
+                                        Login/SignUp
+                                    </a>
+                                </li>
+                            </t>
+                        </ul>-->
+                        <a class="disresplinks" href="#request_to_demo">About Us</a>
+
+
+
+
+
+                    </div>
+                    <div class="header_FCS_Func">
+                        <a id="search_bar_custom">
+                              <img src="/FCS_PAY_OLD/static/src/images/Vector.png"/>
+                             <div class="popupheader">
+                            <div class="o_searchbar">
+                                <form action="/shop" class="o_searchbar_form">
+                                    <input type="text" name="search" placeholder="Search..."
+                                           class="form-control o_searchbar_input"/>
+                                    <button type="submit" class="btn btn-primary button_serach_custom">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        </a>
+     <a href="/shop/cart">
+                                                  <img src="/FCS_PAY_OLD/static/src/images/Vector(1).png"/>
+                        </a>
+
+                        <div>
+                         <t t-set="user_info" t-value="request.env['res.users'].clear_caches()"/>
+                        <ul class="nav navbar-nav navbar-expand ms-auto order-last order-lg-0">
+                            <t t-set="is_connected" t-value="not user_id._is_public()"/>
+                            <li class="nav-item dropdown ms-3 o_no_autohide_item" t-if="is_connected">
+                                <a href="#" role="button" data-bs-toggle="dropdown" class="dropdown-toggle nav-link"
+                                   style="display:flex !important; justify-content: center !important;align-items: center !important;">
+                                    <!--&lt;!&ndash;                                    <img src="" width="50px" class="me-2 ms-2"/>&ndash;&gt;-->
+                                    <span t-if="user_id" class="fw-bold text-black">
+                                        <t t-esc="user_id.name[:23] + '...' if user_id.name and len(user_id.name) &gt; 25 else user_id.name"/>
+                                    </span>
+                                </a>
+                                <div role="menu" class="dropdown-menu js_usermenu dropdown-menu-end position-absolute" style="transform: translate(-10px, 42px) !important;
+    overflow: hidden;">
+                                    <a href="/web" role="menuitem" class="dropdown-item ps-3 d-none"
+                                       id="o_backend_user_dropdown_link" data-oe-model="ir.ui.view" data-oe-id="399"
+                                       data-oe-field="arch" data-oe-xpath="/t[1]/t[1]/li[1]/div[1]/a[1]">
+                                        <i class="fa fa-fw fa-th me-1 small text-muted"></i>
+                                        Apps
+                                    </a>
+                                    <a href="/my/account" role="menuitem" class="dropdown-item ps-3" data-oe-id="417"
+                                       data-oe-xpath="/data/xpath/a" data-oe-model="ir.ui.view" data-oe-field="arch">
+                                        <i class="fa fa-fw fa-id-card-o me-1 small text-muted"></i>
+                                        My Account
+                                    </a>
+                                    <div id="o_logout_divider" class="dropdown-divider" data-oe-model="ir.ui.view"
+                                         data-oe-id="399" data-oe-field="arch"
+                                         data-oe-xpath="/t[1]/t[1]/li[1]/div[1]/div[1]"></div>
+                                    <a role="menuitem" id="o_logout" class="dropdown-item ps-3"
+                                       data-oe-model="ir.ui.view" data-oe-id="399" data-oe-field="arch"
+                                       data-oe-xpath="/t[1]/t[1]/li[1]/div[1]/a[2]"
+                                       href="/web/session/logout?redirect=/">
+                                        <i class="fa fa-fw fa-sign-out me-1 small text-muted"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                            <t t-else="">
+                                <li class="nav-item sign_in_rms"
+                                    style="display: flex;justify-content: center;align-items: center;">
+                                    <a href="/web/login" class="nav-link" style="color: #fff;background: #3662FF;border-radius: 5px;    padding: 5px 25px;    border: none;    font-size: 15px;margin-right: 10px;">
+                                        Sign In
+                                    </a>
+                                </li>
+                            </t>
+                        </ul>
+                          <!--  <button>
+                                <a style="color: white;
+  margin-right: 0px;
+" href="/web/login">Sign In</a>
+                                </button>-->
+                        </div>
+                        <div>
+                            <button> <a style="color: white;
+  margin-right: 0px;
+" href="#request_to_demo">Contact Us</a></button>
+                        </div>
+                    </div>
+
+                    <script type="text/javascript">
+                        function toggleMenu() {
+                        const header = document.querySelector('.headerdiv');
+                        const toggleButton = document.querySelector('.toggle-button');
+
+                        if (header.classList.contains('active')) {
+                        header.classList.add('closing'); // Add closing class
+                        setTimeout(() => {
+                        header.classList.remove('active', 'closing'); // Remove both after animation
+                        toggleButton.textContent = '☰'; // Reset toggle button icon when closing
+                        }, 500); // Match this time with the CSS transition duration
+                        } else {
+                        header.classList.remove('closing'); // Ensure closing class is removed
+                        header.classList.add('active'); // Add active class
+                        toggleButton.textContent = 'X'; // Change icon to 'X' when opening
+                        }
+                        }
+
+                        // Close the menu when clicking outside
+                        document.addEventListener('click', function (event) {
+                        const header = document.querySelector('.headerdiv');
+                        const toggleButton = document.querySelector('.toggle-button');
+
+                        // Check if the click is outside the header and the toggle button
+                        if (!(header.contains(event.target) || toggleButton.contains(event.target))) {
+                        if (header.classList.contains('active')) {
+                        header.classList.add('closing'); // Add closing class
+                        setTimeout(() => {
+                        header.classList.remove('active', 'closing'); // Remove both after animation
+                        toggleButton.textContent = '☰'; // Reset toggle button
+                        }, 500); // Match this time with the CSS transition duration
+                        }
+                        }
+                        });
+                    </script>
+                    <script>document.addEventListener("DOMContentLoaded", function () {
+    const searchIcon = document.getElementById("search_bar_custom");
+    const popup = document.querySelector(".popupheader");
+
+    searchIcon.addEventListener("click", function (event) {
+        event.preventDefault();
+        popup.classList.toggle("active");
+        event.stopPropagation(); // Prevents the event from bubbling to document
+    });
+
+    // Prevent closing when clicking inside the popup
+    popup.addEventListener("click", function (event) {
+        event.stopPropagation();
+    });
+
+    // Close popup when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!popup.contains(event.target) &amp;&amp; !searchIcon.contains(event.target)) {
+            popup.classList.remove("active");
+        }
+    });
+});
+
+</script>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="custom_product_detail" inherit_id="website_sale.product">
+        <xpath expr="//section[@id='product_detail']" position="attributes">
+            <attribute name="t-attf-class" add="oe_structure" separator=" "/>
+        </xpath>
+        <xpath expr="//section[@id='product_detail']//div[@id='add_to_cart_wrap']" position="replace">
+            <t t-if="product.get_a_quote">
+                <div id="add_to_cart_wrap"
+                     t-attf-class="{{'d-none' if combination_info['prevent_zero_price_sale'] else 'd-inline-flex'}} align-items-center mb-2 me-auto">
+                    <a data-animation-selector=".o_wsale_product_images" role="button" id="add_to_cart"
+                       style="background: #44a358 !important;color: white;font-size: 14px;border:1px solid #44a358 !important;"
+                       t-attf-class="btn btn-primary js_check_product a-submit flex-grow-1" href="#">
+                        <i class="fa fa-file-text-o me-2"/>
+                        Get a Quote
+                    </a>
+                </div>
+                <!-- <a role="button" id="get_quote" class="btn flex-grow-1"
+                    style="background: #3662FF;color: white;font-size: 14px;border:1px solid #3662FF;"
+                    t-att-href="'/quote/request/%s' % product.id">
+                     <i class="fa fa-file-text-o me-2"/>
+                     Get a Quote
+                 </a>-->
+            </t>
+            <t t-else="">
+                <div id="add_to_cart_wrap"
+                     t-attf-class="{{'d-none' if combination_info['prevent_zero_price_sale'] else 'd-inline-flex'}} align-items-center mb-2 me-auto">
+                    <a data-animation-selector=".o_wsale_product_images" role="button" id="add_to_cart"
+                       style="background: #3662FF !important;color: white;font-size: 14px;border:1px solid #3662FF !important;"
+                       t-attf-class="btn btn-primary js_check_product a-submit flex-grow-1" href="#">
+                        <i class="fa fa-shopping-cart me-2"/>
+                        Add to cart
+                    </a>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="after">
+            <div t-if="product.accessory_product_ids"
+                 id="accessory_products"
+                 class="d-flex flex-column align-items-stretch mb32">
+                <h5 class="mb-3">Accessory Products</h5>
+                <div t-foreach="product.accessory_product_ids"
+                     t-as="accessory_product"
+                     t-attf-class="d-flex gap-3 #{not accessory_product_last and 'border-bottom pb-4'} #{accessory_product_index > 0 and 'pt-4'}"
+                     t-att-data-publish="accessory_product.website_published and 'on' or 'off'">
+                    <div style="width: 64px">
+                        <a t-att-href="accessory_product.website_url">
+                            <span t-field="accessory_product.image_128"
+                                  t-options="{'widget': 'image', 'qweb_img_responsive': False, 'class': 'o_image_64_max rounded'}"/>
+                        </a>
+                    </div>
+                    <div class="o_cart_suggested_product_name flex-grow-1">
+                        <div>
+                            <a t-att-href="accessory_product.website_url">
+                                <strong t-out="accessory_product.with_context(display_default_code=False).display_name" style="color: #000;"/>
+                            </a>
+                        </div>
+                        <div class="d-none d-md-block text-muted" t-field="accessory_product.description_sale"/>
+                    </div>
+                    <div class="d-flex flex-column align-items-end">
+                        <input class="js_quantity" name="product_id" t-att-data-product-id="accessory_product.id"
+                               type="hidden"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <template id="quote_request_error">
+        <t t-call="website.layout">
+            <div class="text-center">
+                <div class="container mt-5">
+                    <h2>
+                        <t t-esc="error"/>
+                    </h2>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_product_public_category_form_inherit" model="ir.ui.view">
+        <field name="name">product.public.category.form.inherit.website</field>
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='website_description']" position="after">
+                <field name="website_published"/>
+<!--                <field name="featured_images"/>-->
+                <field name="featured_images_ids" widget="many2many_binary" options="{'max_files': 14}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

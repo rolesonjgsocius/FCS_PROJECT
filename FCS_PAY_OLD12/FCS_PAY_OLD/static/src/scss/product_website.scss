@@ -1,0 +1,107 @@
+.peoduct_web{
+    .plms_banner{
+        background: url('/FCS_PAY_OLD/static/src/images/product_web/plms_bg.png');
+        background-size: cover;
+        background-position: center;
+        padding: 15% 10%;
+    }
+    .donation_banner{
+        background: url('/FCS_PAY_OLD/static/src/images/product_web/don_banner.png');
+        background-size: cover;
+        background-position: center;
+        padding: 15% 10%;
+    }
+    .evnt_banner{
+        background: url('/FCS_PAY_OLD/static/src/images/product_web/evnts_bg.png');
+        background-size: cover;
+        background-position: center;
+        padding: 15% 10%;
+    }
+    .paymnt_banner{
+        background: url('/FCS_PAY_OLD/static/src/images/product_web/paymmnt_bg.png');
+        background-size: cover;
+        background-position: center;
+        padding: 15% 10%;
+    }
+    .banner-cnt{
+        h3,p{
+            font-weight: 700;
+        }
+    }
+    .row_pddng{
+        padding: 5% 8%;
+    }
+
+    h4.h4_head{
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+
+    .sc_rt_ct{
+        text-align: center;
+        img{
+            width: 300px;
+        }
+    }
+    .bg_gray{
+        background: #EDEDED;
+    }
+    .futr_div{
+        margin-bottom: 15px;
+        img{
+            width: 95px;
+            height: 95px;
+            margin-bottom: 25px;
+        }
+        h6{
+            font-weight: 700;
+            color: #000000;
+        }
+        ul.list_style{
+            li{
+                text-align: left;
+            }
+        }
+    }
+    .bnfts{
+        text-align: center;
+        img{
+            width: 85px;
+            height: 85px;
+            margin-bottom: 25px;
+        }
+        h6{
+            text-align: center;
+            color: #000000;
+            font-weight: 700;
+        }
+        p{
+            text-align: center;
+        }
+    }
+    .prime_btn{
+        font-family: "Poppins", serif;
+        background: #3662FF;
+        border-radius: 5px;
+        padding: 5px 25px;
+        border: none;
+        color: white;
+        font-size: 15px;
+        margin-right: 10px;
+        margin-top: 18px;
+        float: right;
+    }
+    #webform_lead{
+        .input_grup{
+            display: flex;
+            justify-content: space-between;
+            padding: 2%;
+            input{
+                border: 1px solid #00000080;
+                background: #FFFFFF59;
+                border-radius: 8px;
+                padding: 1% 3%;
+            }
+        }
+    }
+}

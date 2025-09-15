@@ -1,0 +1,55 @@
+.s_dropdown_sections {
+  border: 1px dashed transparent;
+  padding: 1rem;
+  position: relative;
+}
+
+/* Editor-only control bar (visible only when website editor is active)
+   We control visibility in JS by adding/removing the .o_editor_only class.
+*/
+.s_dropdown_sections .o_editor_only {
+  display: none;
+  gap: .5rem;
+  margin-bottom: .5rem;
+}
+
+.s_dropdown_sections.edit_mode .o_editor_only {
+  display: flex;
+}
+
+/* Layout for dropdown and button bar */
+.sds-dropdown {
+  padding: .4rem;
+  margin-bottom: .6rem;
+  min-width: 220px;
+}
+
+.sds-button-bar {
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  margin-bottom:.8rem;
+}
+
+.sds-containers .sds-container {
+  display: none;
+  padding: 1rem;
+  border: 1px solid #eaeaea;
+  background: #fff;
+  min-height: 120px;
+}
+
+/* Visible container */
+.sds-containers .sds-container.active {
+  display: block;
+}
+
+/* Small visual helpers so that in editor you can see container boundaries */
+.s_dropdown_sections.edit_mode .sds-containers .sds-container {
+  outline: 2px dashed rgba(0,0,0,0.08);
+}
+
+/* Hide editor-only snippets overlay tools when in public view */
+.s_dropdown_sections .o_editor_only button {
+  cursor: pointer;
+}

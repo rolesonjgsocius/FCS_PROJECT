@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="website_lead_form">
+        <form id="webform_lead" t-att-data-product-name="product.name">
+            <div class="input_grup">
+                <label for="name">Your Name*</label>
+                <input id="name" type="text" required="required"/>
+            </div>
+            <div class="input_grup">
+                <label for="phone">Phone Number</label>
+                <input id="phone" type="tel"/>
+            </div>
+            <div class="input_grup">
+                <label for="email">Your Email*</label>
+                <input id="email" type="email" required="required"/>
+            </div>
+            <div class="input_grup">
+                <label for="company">Your Company*</label>
+                <input id="company" type="text" required="required"/>
+            </div>
+            <div class="input_grup">
+                <label for="subject">Subject*</label>
+                <input id="subject" type="text" required="required" readonly="readonly"/>
+            </div>
+            <div class="input_grup">
+                <label for="question">Your Question*</label>
+                <input id="question" type="text" required="required"/>
+            </div>
+            <button class="btn prime_btn" type="submit">Book A Demo</button>
+            <span class="text-success text-success" id="success_msg"></span>
+        </form>
+    </template>
+    <template id="plms_brain">
+        <section id="plms_brain_sec" class="peoduct_web oe_structure">
+            <div class="container-fluid oe_structure">
+                <div class="row plms_banner oe_structure">
+                    <div class="col-md-6">
+                        <div class="banner-cnt">
+                            <h3>PLMS Brain™</h3>
+                            <p>The Intelligent Product Management Engine<br/>
+                                A Full Commerce Solutions Innovation
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <div class="col-md-6 sc_lt_ct">
+                        <h4 class="h4_head">What Is PLMS Brain™?</h4>
+                        <p>PLMS Brain™ is a next-generation <strong>Product Library Management System</strong> that transforms how businesses manage, enrich, and deploy product information across eCommerce, POS, and beyond.</p>
+                        <p>It centralizes all product data, relationships, and content workflows into one intelligent system, driving faster launches, higher revenue, and seamless cross-channel customer experiences.</p>
+                    </div>
+                    <div class="col-md-6 sc_rt_ct">
+                        <img src="/FCS_PAY_OLD/static/src/images/product_web/plms_sec.png" class="img-fluid"/>
+                    </div>
+                </div>
+                <div class="row row_pddng bg_gray oe_structure">
+                    <h4 class="text-center h4_head ">Key Features</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/ftrs1.png"/>
+                                <h6>Unified Product Hub</h6>
+                                <p>Manage products, categories, attributes, documents, and assets in one centralized
+                                    platform.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/ftrs2.png"/>
+                                <h6>Dynamic Relationship Engine</h6>
+                                <p>Automate accessories, cross-sells, upsells, and bundles to increase average order
+                                    value.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/ftrs3.png"/>
+                                <h6>AI-Powered Content Generation</h6>
+                                <p>Generate unique product descriptions, specs, and marketing assets at scale</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/ftrs4.png"/>
+                                <h6>Multi-Channel Integration</h6>
+                                <p>Seamlessly sync with Odoo eCommerce and POS systems to maintain consistent product
+                                    experiences.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/ftrs5.png"/>
+                                <h6>Visual Product Mapping</h6>
+                                <p>Use interactive knowledge graphs to understand and optimize product interconnections.</p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/ftrs6.png"/>
+                                <h6>Plugin-Ready Design</h6>
+                                <p>Extend functionality with modular plugins and third-party integrations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <h4 class="text-center h4_head">Business Benefits</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/bnf1.png"/>
+                                <h6>Accelerate Time-to-Market</h6>
+                                <p>Launch new products and campaigns faster with automated workflows.</p>
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/bnf2.png"/>
+                                <h6>Boost Revenue and Profitability</h6>
+                                <p>Unlock powerful upselling and cross-selling strategies driven by relational intelligence.</p>
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/bnf3.png"/>
+                                <h6>Streamline Operations</h6>
+                                <p>Reduce manual work and eliminate data silos with a centralized, automated system.</p>
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/bnf4.png"/>
+                                <h6>Stay Future-Ready</h6>
+                                <p>Adapt to market changes with a flexible, scalable platform designed for continuous innovation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row_pddng bg_gray oe_structure">
+                    <h4 class="text-center h4_head">Why Choose PLMS Brain™?</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <img src="/FCS_PAY_OLD/static/src/images/product_web/PLMS-Logo.png" class="img-fluid" width="200px"/>
+                                </div>
+                                <p>In a world where product complexity is increasing and customer expectations are
+                                    higher than ever, businesses need more than just a catalog — they need a <strong>thinking
+                                        system.</strong><br/><br/>
+
+                                    <strong>PLMS Brain™</strong> gives your team the intelligence, automation, and control to operate
+                                    smarter, move faster, and sell better across every channel.<br/><br/>
+
+                                    <strong>Contact Full Commerce Solutions</strong> today to schedule a demo and discover how PLMS
+                                    Brain™ can transform your product operations.
+                                </p>
+                            </div>
+                            <div class="col-md-6 oe_structure">
+                                <t t-call="FCS_PAY_OLD.website_lead_form"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="donations_frund">
+        <section id="donation_web" class="peoduct_web oe_structure">
+            <div class="container-fluid oe_structure">
+                <div class="row donation_banner oe_structure">
+                    <div class="col-md-6">
+                        <div class="banner-cnt">
+                            <h3>Turn Every Cause into a Campaign</h3>
+                            <p>Power your mission with a unified platform that handles<br/> online giving, fund allocation, donor tracking, and mobile<br/> donations—all in one place.
+                            </p>
+                            <p class="d-flex gap-4">
+                                <a href="#" class="btn prime_btn">Launch a Campaign</a>
+                                <a href="#" class="btn prime_btn">View Demo</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <div class="col-md-6 sc_lt_ct">
+                        <h4 class="h4_head">The Problem:</h4>
+                            <p>Fundraising is fragmented—multiple tools for donations, communication, receipts,<br/> and fund tracking. Manual processes create compliance gaps and donor fatigue.</p>
+                        <h4 class="h4_head">The Solution:</h4>
+                        <p>The dooFull Fundraising &amp; Donations Platform unifies your entire giving experience<br/> into a single system. Launch branded campaigns, receive donations online or via<br/> SMS, and track funds by purpose—automatically.</p>
+                    </div>
+                    <div class="col-md-6 sc_rt_ct">
+                        <img src="/FCS_PAY_OLD/static/src/images/product_web/Website-Donations.png" class="img-fluid"/>
+                    </div>
+                </div>
+                <div class="row row_pddng bg_gray oe_structure">
+                    <h4 class="text-center h4_head">Key Features</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/dftr1.png"/>
+                                <h6>Campaign Builder</h6>
+                                <p>Create goal-driven campaigns with progress bars, fund targets, and public giving pages.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/dftr2.png"/>
+                                <h6>Text2Pay Donations</h6>
+                                <p>Send donation links via SMS or auto-trigger them from campaign workflows.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/dftr3.png"/>
+                                <h6>Fund Segregation</h6>
+                                <p>Classify and restrict donations by fund type (general, restricted, pledge, memorial, etc.).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/dftr4.png"/>
+                                <h6>IRS-Ready Receipts</h6>
+                                <p>Auto-generate compliant donor letters and year-end summaries.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/dftr5.png"/>
+                                <h6>Donor Analytics &amp; History</h6>
+                                <p>See giving behavior, donation patterns, and engagement at-a-glance.</p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/dftr6.png"/>
+                                <h6>Recurring Giving + Pledges</h6>
+                                <p>Accept monthly, annual, and pledge-based contributions with full tracking.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <section class="s_carousel_wrapper p-0 oe_structure" data-vxml="001" data-vcss="001" id="donation_slider">
+            <t t-set="uniq" t-value="datetime.datetime.now().microsecond"/>
+            <div t-attf-id="myCarousel{{uniq}}" class="s_carousel s_carousel_default carousel slide" data-bs-ride="true"
+                 data-bs-interval="10000">
+
+                <!-- Content -->
+                <div class="carousel-inner">
+                    <!-- #01 -->
+                    <div class="carousel-item active oe_img_bg o_bg_img_center pt96 pb-4"
+                         style="background-image: url('/FCS_PAY_OLD/static/src/images/slider/don_bg.png');"
+                         data-name="Slide">
+                        <div class="o_we_bg_filter bg-black-25"/>
+                        <div class="container oe_unremovable">
+                            <div class="row caro_card">
+                                <h4 class="text-center h4_head">Seamless Giving in Every Channel</h4>
+                                <div class="carousel-content col-lg-12">
+                                    <img src="/FCS_PAY_OLD/static/src/images/slider/md_form.png" class="img-fluid slide_w_img"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- #02 -->
+                    <div class="carousel-item oe_img_bg o_bg_img_center pt96 pb-4"
+                         style="background-image: url('/FCS_PAY_OLD/static/src/images/slider/don_bg.png');"
+                         data-name="Slide">
+                        <div class="o_we_bg_filter bg-black-25"/>
+                        <div class="container oe_unremovable">
+                            <div class="row caro_card">
+                                <h4 class="text-center h4_head">Seamless Giving in Every Channel</h4>
+                                <div class="carousel-content col-lg-12 pb24 pt24">
+                                    <img src="/FCS_PAY_OLD/static/src/images/slider/md_dash.png" class="img-fluid slide_w_img"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- #03 -->
+                    <!--<div class="carousel-item oe_img_bg o_bg_img_center pt96 pb-4"
+                         style="background-image: url('/FCS_PAY_OLD/static/src/images/slider/don_bg.png');"
+                         data-name="Slide">
+                        <div class="o_we_bg_filter bg-black-25"/>
+                        <div class="container oe_unremovable">
+                            <div class="row caro_card">
+                                <h4 class="text-center h4_head">Seamless Giving in Every Channel</h4>
+                                <div class="carousel-content col-lg-12">
+                                    <img src="/FCS_PAY_OLD/static/src/images/slider/FCS_PLMS_Brain3.png"
+                                         class="img-fluid slide_w_img"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!-- #04 -->
+                    <!--<div class="carousel-item oe_img_bg o_bg_img_center pt96 pb-4"
+                         style="background-image: url('/FCS_PAY_OLD/static/src/images/slider/FCS_Payments_Gateway4.png');"
+                         data-name="Slide">
+                        <div class="o_we_bg_filter bg-black-25"/>
+                        <div class="container oe_unremovable">
+                            <div class="row caro_card">
+                                <h4 class="text-center h4_head">Seamless Giving in Every Channel</h4>
+                                <div class="carousel-content col-lg-6">
+                                    <img src="/FCS_PAY_OLD/static/src/images/slider/don_bg.png" class="img-fluid slide_w_img"/>
+                                </div>
+                                <div class="carousel-content col-lg-6">
+                                    <div class="caro_inner_content">
+                                        <h3 class="slider_head">Control the Rails. Maximize the Margin.</h3>
+                                        <p class="lead">
+                                            Accept card, ACH, eComm, PoS, and Text2Pay—all through your brand. Wholesale
+                                            passthrough or revenue-share models. No third-party lock-in. Total control,
+                                            total flexibility.
+                                        </p>
+                                        <p class="d-flex gap-1">
+                                            <a href="/shop/fcs-pgb-2023-0001-payment-gateway-basic-subscription-3"
+                                               class="btn prime-btn">View Details
+                                            </a>
+                                            <a href="/appointment" class="btn prime-btn o_default_snippet_text">Schedule Demo</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+                <!-- Controls -->
+                <button class="carousel-control-prev o_not_editable" contenteditable="false"
+                        t-attf-data-bs-target="#myCarousel{{uniq}}" data-bs-slide="prev" aria-label="Previous"
+                        title="Previous">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"/>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next o_not_editable" contenteditable="false"
+                        t-attf-data-bs-target="#myCarousel{{uniq}}" data-bs-slide="next" aria-label="Next" title="Next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"/>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <!-- Indicators -->
+                <!--<div class="carousel-indicators o_not_editable">
+                    <button type="button" t-attf-data-bs-target="#myCarousel{{uniq}}" data-bs-slide-to="0"
+                            class="active" aria-label="Carousel indicator"/>
+                    <button type="button" t-attf-data-bs-target="#myCarousel{{uniq}}" data-bs-slide-to="1"
+                            aria-label="Carousel indicator"/>
+                    <button type="button" t-attf-data-bs-target="#myCarousel{{uniq}}" data-bs-slide-to="2"
+                            aria-label="Carousel indicator"/>
+                </div>-->
+            </div>
+        </section>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <h4 class="text-center h4_head">Integrations &amp; Compatibility</h4>
+                    <img src="/FCS_PAY_OLD/static/src/images/product_web/intc_img.png" class="img-fluid"/>
+                </div>
+                <div class="row row_pddng bg_gray oe_structure">
+                    <h4 class="text-center h4_head">Real-World Use Cases</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/dbnf1.png"/>
+                                <h6>Schools</h6>
+                                <p>Fundraisers by class, program, or event with donation tracking</p>
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/dbnf2.png"/>
+                                <h6>Churches</h6>
+                                <p>Tithes, building campaigns, memorial gifts, and missions</p>
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/dbnf3.png"/>
+                                <h6>Nonprofits</h6>
+                                <p>Online appeals, pledge drives, monthly givers.</p>
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/dbnf4.png"/>
+                                <h6>Events</h6>
+                                <p>Add donation checkout to registrations, lodging, and merch.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <h4 class="text-center h4_head">Put your purpose into action.</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <img src="/FCS_PAY_OLD/static/src/images/product_web/donz.png" class="img-fluid" width="200px"/>
+                                </div>
+                                <p>Launch your next giving campaign today with a platform built to grow your mission—not your tech stack.
+                                </p>
+                            </div>
+                            <div class="col-md-6 oe_structure">
+                                <t t-call="FCS_PAY_OLD.website_lead_form"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="evnts_lodgng">
+        <section id="evnts_lodgng_sec" class="peoduct_web oe_structure">
+            <div class="container-fluid oe_structure">
+                <div class="row evnt_banner oe_structure">
+                    <div class="col-md-6">
+                        <div class="banner-cnt">
+                            <h3>Events &amp; Lodging Management System</h3>
+                            <p>Centralize Registration, Housing, and Guest<br/> Engagement—From One Unified System
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <div class="col-md-6 sc_lt_ct">
+                        <h4 class="h4_head">Event &amp; Lodging Management System</h4>
+                        <p>The <strong>Events &amp; Lodging Management System</strong> from Full Commerce Solutions eliminates the complexity of fragmented tools and paper-based logistics. Whether you're managing a multi-day conference, student housing, mission trips, or summer camps, this fully integrated platform handles everything from sign-up to check-out—and every bed in between.</p>
+                        <p>Launch your next event without waiting on IT. Manage every guest, room, and payment from one clean interface. Scale with confidence, not chaos.</p>
+                    </div>
+                    <div class="col-md-6 sc_rt_ct">
+                        <img src="/FCS_PAY_OLD/static/src/images/product_web/evnts_rgt.png" class="img-fluid"/>
+                    </div>
+                </div>
+                <div class="row row_pddng bg_gray oe_structure">
+                    <h4 class="text-center h4_head ">Key Features</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/evftr1.png"/>
+                                <h6>Unified Registration &amp; Lodging</h6>
+                                <p>
+                                    <ul class="list_style">
+                                        <li>Single form for event sign-up, housing, merchandise, and donations</li>
+
+                                        <li>Real-time lodging assignment by group, gender, age, or custom tags</li>
+
+                                        <li>Flexible ticketing: paid, free, group codes, and early-bird pricing</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/evftr2.png"/>
+                                <h6>Smart Lodging Dashboard</h6>
+                                <p>
+                                    <ul class="list_style">
+                                        <li>Room-by-room occupancy visualization</li>
+
+                                        <li>Bed-level assignment and availability tracking</li>
+
+                                        <li>On-the-fly changes with instant guest updates</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/evftr3.png"/>
+                                <h6>Mobile-Ready Guest Experience</h6>
+                                <p>
+                                    <ul class="list_style">
+                                        <li>Guests can register, pay, and review housing details on mobile</li>
+
+                                        <li>Integrated Text2Pay for fast, frictionless transactions
+                                        </li>
+
+                                        <li>Smart receipts that reflect every line item in a single view</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/evftr4.png"/>
+                                <h6>Automated Follow-Up &amp;
+                                    Communication</h6>
+                                <p>
+                                    <ul class="list_style">
+                                        <li>Triggered messages for confirmations, reminders, check-out, and follow-up</li>
+
+                                        <li>Track open rates and engagement in real time</li>
+
+                                        <li>Built-in survey and feedback tools for continuous improvement</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/evftr5.png"/>
+                                <h6>Built-In Financial Control
+                                </h6>
+                                <p>
+                                    <ul class="list_style">
+                                        <li>Fully itemized receipts and tax-compliant donor summaries.</li>
+
+                                        <li>Real-time reporting across revenue, occupancy, and campaign performance</li>
+
+                                        <li>Syncs directly with Odoo Accounting and CRM modules</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <h4 class="text-center h4_head">Use Cases</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/evbnf1.png"/>
+                                <h6>College Retreats &amp; Orientation Housing</h6>
+                                <!--<p>Launch new products and campaigns faster with automated workflows.</p>-->
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/evbnf2.png"/>
+                                <h6>Church Camps &amp; Leadership Summits</h6>
+                                <!--<p>Unlock powerful upselling and cross-selling strategies driven by relational intelligence.</p>-->
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/evbnf1.png"/>
+                                <h6>School Events &amp; Parent/Student Weekends</h6>
+                                <!--<p>Reduce manual work and eliminate data silos with a centralized, automated system.</p>-->
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/evbnf3.png"/>
+                                <h6>Conferences, Fundraisers, and Sponsored Events</h6>
+                                <!--<p>Adapt to market changes with a flexible, scalable platform designed for continuous innovation.</p>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row_pddng bg_gray oe_structure">
+                    <h4 class="text-center h4_head">Why It Works</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/bnf1.png"/>
+                                <h6>Launch in Minutes </h6>
+                                <p>No developer required</p>
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/bnf2.png"/>
+                                <h6>Replace 6+ Tools </h6>
+                                <p>Registration, lodging, donations, comms, payments, and reporting in one</p>
+                            </div>
+                            <div class="col-md-2 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/bnf3.png"/>
+                                <h6>Self-Onboarding </h6>
+                                <p>Designed for non-technical staff</p>
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/wrks.png"/>
+                                <h6>Guest-Centric Design</h6>
+                                <p>One place for everything they need</p>
+                            </div>
+                            <div class="col-md-2 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/wrks2.png"/>
+                                <h6>Built for Growth</h6>
+                                <p>Handle more guests, more events, more revenue</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <h4 class="text-center h4_head">The FCS Advantage</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <img src="/FCS_PAY_OLD/static/src/images/product_web/event_rgt.png" class="img-fluid" width="200px"/>
+                                </div>
+                                <p  style="text-align: justify;">This Events &amp; Lodging System is part of the Full Commerce Solutions –
+                                    Transformation Superstore: a wholesale direct business enablement platform that
+                                    unifies operations, automates growth, and creates cost control like never before.
+                                    <br/>
+                                    <br/>
+
+                                    <strong>From registration to room assignments to revenue—finally, it all makes sense.</strong><br/><br/>
+
+                                    <strong>Ready to transform your next event?</strong>
+                                </p>
+                            </div>
+                            <div class="col-md-6 oe_structure">
+                                <t t-call="FCS_PAY_OLD.website_lead_form"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="payment_gate">
+        <section id="payment_gate_sec" class="peoduct_web oe_structure">
+            <div class="container-fluid oe_structure">
+                <div class="row paymnt_banner oe_structure">
+                    <div class="col-md-6">
+                        <div class="banner-cnt">
+                            <h3>FCS Payment Gateway</h3>
+                            <p>Own the Rails. Embed the Power. Unlock the Margin. <br/>
+
+                                A fully embedded, white-label payment gateway built for control, scale, and brand
+                                ownership—without third-party restrictions.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <div class="col-md-6 sc_lt_ct">
+                        <h4 class="h4_head">Why FCS Payment Gateway?</h4>
+                        <p>Most payment systems are built for the platform—not for the merchant.</p>
+                        <p>At Full Commerce Solutions, we flipped the model.</p>
+                        <p>The <strong>FCS Payment Gateway</strong> gives you <strong>direct-to-network access, real-time deposit
+                            control, and fully branded checkout flows,</strong> embedded natively into your ERP,
+                            eCommerce, AR, and event systems. No markups. No redirects. No lock-in.
+                        </p>
+                    </div>
+                    <div class="col-md-6 sc_rt_ct">
+                        <img src="/FCS_PAY_OLD/static/src/images/product_web/rgt_img.png" class="img-fluid"/>
+                    </div>
+                </div>
+                <div class="row row_pddng bg_gray oe_structure">
+                    <h4 class="text-center h4_head ">Key Features</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/bnf2.png"/>
+                                <h6>Wholesale-Direct Rates</h6>
+                                <p style="text-align: justify;">
+                                    Stop paying retail for your own revenue. Gain direct access to cost-efficient
+                                    payment rails with no hidden fees or tiered markups.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/evftr2.png"/>
+                                <h6>White-Label Control</h6>
+                                <p style="text-align: justify;">
+                                    Your logo. Your receipts. Your system. Deliver a seamless, trust-building payment
+                                    experience across every customer touchpoint.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/evftr3.png"/>
+                                <h6>Embedded Everywhere</h6>
+                                <p style="text-align: justify;">
+                                    From mobile and Text2Pay to fundraising, PoS, and AR—use one payment gateway across
+                                    all workflows, fully integrated with Odoo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/evftr4.png"/>
+                                <h6>Custom Flow Logic</h6>
+                                <p style="text-align: justify;">
+                                    Route funds by product, division, or partner. Schedule deposits to align with
+                                    real-world business needs, not third-party timelines.
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-center futr_div">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/features/evftr5.png"/>
+                                <h6>ERP-Native Reporting
+                                </h6>
+                                <p style="text-align: justify;">
+                                    Gain real-time visibility across transactions, margin impact, and
+                                    reconciliation—automatically tied to your Odoo accounting and analytics.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <h4 class="text-center h4_head">Built for Vertical Impact</h4>
+                    <p class="text-center">The FCS Payment Gateway supports custom configurations for industries like:</p>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/evbnf1.png"/>
+                                <h6>Education
+                                    (tuition, events, fundraising)
+                                </h6>
+                                <!--<p>Launch new products and campaigns faster with automated workflows.</p>-->
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/evbnf2.png"/>
+                                <h6>Nonprofits (donor management, fund routing)</h6>
+                                <!--<p>Unlock powerful upselling and cross-selling strategies driven by relational intelligence.</p>-->
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/evbnf1.png"/>
+                                <h6>Retail &amp; eCommerce (checkout, invoicing, subscriptions)</h6>
+                                <!--<p>Reduce manual work and eliminate data silos with a centralized, automated system.</p>-->
+                            </div>
+                            <div class="col-md-3 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/evbnf3.png"/>
+                                <h6>Service &amp; Field Operations (mobile pay, Text2Pay, AR)</h6>
+                                <!--<p>Adapt to market changes with a flexible, scalable platform designed for continuous innovation.</p>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row_pddng bg_gray oe_structure">
+                    <h4 class="text-center h4_head">Beyond Processing. Total Enablement.</h4>
+                    <p class="text-center">This isn’t just a payment tool—it’s an infrastructure advantage.</p>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/bnf1.png"/>
+                                <h6>One Platform. Every Payment. </h6>
+                                <p>Unified across channels, embedded in your stack.</p>
+                            </div>
+                            <div class="col-md-4 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/benifits/bnf3.png"/>
+                                <h6>Margin You Control</h6>
+                                <p>Build in your own markup logic or pass through at wholesale cost.</p>
+                            </div>
+                            <div class="col-md-4 bnfts">
+                                <img src="/FCS_PAY_OLD/static/src/images/product_web/wrks2.png"/>
+                                <h6>Freedom to Scale.</h6>
+                                <p>No lock-in. No volume caps. No growth penalties.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row_pddng oe_structure">
+                    <h4 class="text-center h4_head">The FCS Advantage</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <img src="/FCS_PAY_OLD/static/src/images/product_web/rgt_img.png" class="img-fluid" width="200px"/>
+                                </div>
+                                <p style="text-align: justify;">
+                                    <strong>Transformation Made Easy</strong>
+                                    <br/>
+                                    <br/>
+                                    The FCS Payment Gateway is part of the Full Commerce Solutions – Transformation
+                                    Superstore: a wholesale-direct ecosystem designed to reduce cost, simplify
+                                    operations, and unlock new revenue streams across every business function.
+                                    <br/>
+                                    <br/>
+                                    From ERP to embedded payments, every module works together—built to eliminate vendor
+                                    lock-in and restore full control of your business infrastructure.
+                                    <br/>
+                                    <br/>
+                                    <strong>Ready to stop renting your payments—and start owning them?</strong>
+                                </p>
+                            </div>
+                            <div class="col-md-6 oe_structure">
+                                <t t-call="FCS_PAY_OLD.website_lead_form"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+</odoo>

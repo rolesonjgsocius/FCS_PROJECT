@@ -1,0 +1,443 @@
+<odoo>
+
+    <record id="view_product_template_discount" model="ir.ui.view">
+        <field name="name">product.template.discount.fields</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet" position="inside">
+                <group string="Discount Information">
+                    <field name="coupon_code"/>
+                    <field name="discount"/>
+                    <field name="discount_value" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_product_template_more_images" model="ir.ui.view">
+        <field name="name">product.template.more.images</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet" position="inside">
+
+                <group string="More Images">
+                    <div class="custom_more_images">
+                        <field name="image_1" widget="image"/>
+                        <field name="image_2" widget="image"/>
+                        <field name="image_3" widget="image"/>
+                        <field name="image_4" widget="image"/>
+                        <field name="image_5" widget="image"/>
+                        <field name="image_6" widget="image"/>
+                        <field name="image_7" widget="image"/>
+                        <field name="image_8" widget="image"/>
+                        <field name="image_9" widget="image"/>
+                        <field name="image_10" widget="image"/>
+                        <field name="image_11" widget="image"/>
+                        <field name="image_12" widget="image"/>
+                          <field name="image_13" widget="image"/>
+                    </div>
+
+                </group>
+
+                <group string="dooFull eCommerce">
+                       <field name="dooFull_eCommerce" widget="boolean_toggle"/>
+                </group>
+
+
+                <!-- Product Descriptions Section -->
+                <group string="Main Descriptions">
+                    <div class="Descriptions_main_backend">
+                        <field name="maindescription_1" widget="text"/>
+                        <field name="maindescription_2" widget="text"/>
+                        <field name="maindescription_3" widget="text"/>
+                        <field name="maindescription_4" widget="text"/>
+                        <field name="maindescription_5" widget="text"/>
+                        <field name="maindescription_6" widget="text"/>
+                        <field name="maindescription_7" widget="text"/>
+                        <field name="maindescription_8" widget="text"/>
+                        <field name="maindescription_9" widget="text"/>
+                        <field name="maindescription_10" widget="text"/>
+                        <field name="maindescription_11" widget="text"/>
+                        <field name="maindescription_12" widget="text"/>
+                    </div>
+
+                </group>
+                <group string="Part Number(s)">
+                    <div class="commongroup_description">
+                        <field name="port_number_1" widget="text"/>
+                        <field name="port_number_2" widget="text"/>
+                        <field name="port_number_3" widget="text"/>
+                        <field name="port_number_4" widget="text"/>
+                        <field name="port_number_5" widget="text"/>
+                        <field name="port_number_6" widget="text"/>
+                    </div>
+
+
+                </group>
+                <group string="Enclosure Color">
+                    <div class="commongroup_description">
+                        <field name="Enclosure_Color" widget="text"/>
+                    </div>
+
+                </group>
+
+                <group string="Touch Technology &amp; Capacity">
+                    <div class="commongroup_description">
+                        <field name="Touch_Technology_and_Capacity" widget="text"/>
+                    </div>
+                </group>
+                <group string="Processor">
+                    <div class="commongroup_description">
+                        <field name="Processor" widget="text"/>
+                    </div>
+                </group>
+                <group string="Memory (RAM)">
+                    <div class="commongroup_description">
+                        <field name="MemoryRAM" widget="text"/>
+                    </div>
+                </group>
+                <group string="Storage">
+                    <div class="commongroup_description">
+                        <field name="Storage" widget="text"/>
+                    </div>
+                </group>
+                <group string="Expansion Options">
+                    <div class="commongroup_description">
+                        <field name="Expansion_Options" widget="text"/>
+                    </div>
+                </group>
+
+                <group string="OS">
+                    <div class="commongroup_description">
+                        <field name="OS" widget="text"/>
+                        <field name="OS_2" widget="text"/>
+
+                    </div>
+                </group>
+                <group string="Display">
+                    <div class="commongroup_description">
+
+                        <field name="Display" widget="text"/>
+
+                    </div>
+                </group>
+                <group string="Touchscreen">
+                    <div class="commongroup_description">
+
+                        <field name="Touchscreen" widget="text"/>
+                        <field name="Touchscreen_2" widget="text"/>
+                        <field name="Touchscreen_3" widget="text"/>
+
+                    </div>
+                </group>
+                <group string="Sensor">
+                    <div class="commongroup_description">
+
+                        <field name="Sensor" widget="text"/>
+                        <field name="Sensor_2" widget="text"/>
+                        <field name="Sensor_3" widget="text"/>
+
+                    </div>
+                </group>
+                <group string="Resolution">
+                    <div class="commongroup_description">
+
+                        <field name="Resolution" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="Brightness">
+                    <div class="commongroup_description">
+
+                        <field name="Brightness" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="Contrast Ratio">
+                    <div class="commongroup_description">
+                        <field name="Contrast_Ratio" widget="text"/>
+                    </div>
+                </group>
+                <group string="Battery">
+                    <div class="commongroup_description">
+                        <field name="Battery" widget="text"/>
+                        <field name="Battery_two" widget="text"/>
+                        <field name="Battery_three" widget="text"/>
+                    </div>
+                </group>
+                <group string="Cellular">
+                    <div class="commongroup_description">
+
+                        <field name="Cellular" widget="text"/>
+                        <field name="Cellular_2" widget="text"/>
+                        <field name="Cellular_3" widget="text"/>
+
+                        <field name="Cellular_4" widget="text"/>
+                        <field name="Cellular_5" widget="text"/>
+                        <field name="Cellular_6" widget="text"/>
+
+                        <field name="Cellular_7" widget="text"/>
+                        <field name="Cellular_8" widget="text"/>
+                        <field name="Cellular_9" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="GPS">
+                    <div class="commongroup_description">
+
+                        <field name="GPS" widget="text"/>
+                        <field name="GPS_2" widget="text"/>
+                        <field name="GPS_3" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="Resolution">
+                    <div class="commongroup_description">
+
+                        <field name="Resolution" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="I/O Ports">
+                    <div class="commongroup_description">
+
+                        <field name="input_output" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="Camera">
+                    <div class="commongroup_description">
+
+                        <field name="Camera" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="Payment">
+                    <div class="commongroup_description">
+
+                        <field name="Payment" widget="text"/>
+                        <field name="Payment_two" widget="text"/>
+                        <field name="Payment_three" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="Certifications">
+                    <div class="commongroup_description">
+
+                        <field name="Certifications" widget="text"/>
+                        <field name="Certifications_2" widget="text"/>
+                        <field name="Certifications_3" widget="text"/>
+                        <field name="Certifications_4" widget="text"/>
+                        <field name="Certifications_5" widget="text"/>
+                        <field name="Certifications_6" widget="text"/>
+                        <field name="Certifications_7" widget="text"/>
+                        <field name="Certifications_8" widget="text"/>
+                        <field name="Certifications_9" widget="text"/>
+                        <field name="Certifications_10" widget="text"/>
+                        <field name="Certifications_11" widget="text"/>
+                        <field name="Certifications_12" widget="text"/>
+                        <field name="Certifications_13" widget="text"/>
+                        <field name="Certifications_14" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="Barcode Scanner">
+                    <div class="commongroup_description">
+
+                        <field name="Barcode_Scanner" widget="text"/>
+                        <field name="Barcode_Scanner_2" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="Wireless">
+                    <div class="commongroup_description">
+
+                        <field name="Wireless" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="LED">
+                    <div class="commongroup_description">
+
+                        <field name="LED" widget="text"/>
+                        <field name="LED_2" widget="text"/>
+
+
+                    </div>
+                </group>
+
+                <group string="Bluetooth">
+                    <div class="commongroup_description">
+
+                        <field name="Bluetooth" widget="text"/>
+
+
+                    </div>
+                </group>
+
+
+                <group string="Keyboard">
+                    <div class="commongroup_description">
+
+                        <field name="Keyboard" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="Audio">
+                    <div class="commongroup_description">
+
+                        <field name="Audio" widget="text"/>
+                        <field name="Audio_2" widget="text"/>
+                        <field name="Audio_3" widget="text"/>
+                    </div>
+                </group>
+                <group string="Buttons">
+                    <div class="commongroup_description">
+
+                        <field name="Buttons" widget="text"/>
+                        <field name="Buttons_2" widget="text"/>
+                        <field name="Buttons_3" widget="text"/>
+
+
+                    </div>
+                </group>
+                <group string="Dimensions">
+                    <div class="commongroup_description">
+                        <field name="Dimensions" widget="text"/>
+                        <field name="Dimensions_2" widget="text"/>
+                    </div>
+                </group>
+                <group string="Shipping Box Dimensions">
+                    <div class="commongroup_description">
+                        <field name="Shipping_Box_Dimensions" widget="text"/>
+                        <field name="Shipping_Box_Dimensions_2" widget="text"/>
+                    </div>
+                </group>
+                <group string="Weight (Packaged)">
+                    <div class="commongroup_description">
+                        <field name="Weight_packed" widget="text"/>
+                        <field name="Weight_packed_2" widget="text"/>
+                        <field name="Weight_packed_3" widget="text"/>
+                        <field name="Weight_packed_4" widget="text"/>
+                    </div>
+                </group>
+                <group string="Operating Temperature">
+                    <div class="commongroup_description">
+                        <field name="Operating_Temperature" widget="text"/>
+
+                    </div>
+                </group>
+                <group string="Storage Temperature">
+                    <div class="commongroup_description">
+                        <field name="Storage_Temperature" widget="text"/>
+                    </div>
+                </group>
+                <group string="Humidity">
+                    <div class="commongroup_description">
+                        <field name="Humidity" widget="text"/>
+                    </div>
+                </group>
+                <group string="Regulatory approvals and declarations">
+                    <div class="commongroup_description">
+                        <field name="Regulatory_approvals_and_declarations" widget="text"/>
+                        <field name="Regulatory_approvals_and_declarations_2" widget="text"/>
+                        <field name="Regulatory_approvals_and_declarations_3" widget="text"/>
+                        <field name="Regulatory_approvals_and_declarations_4" widget="text"/>
+                        <field name="Regulatory_approvals_and_declarations_5" widget="text"/>
+                        <field name="Regulatory_approvals_and_declarations_6" widget="text"/>
+                    </div>
+                </group>
+                <group string="Drop Rating">
+                    <div class="commongroup_description">
+                        <field name="Drop_Rating" widget="text"/>
+
+                    </div>
+                </group>
+                <group string="ESD">
+                    <div class="commongroup_description">
+                        <field name="ESD" widget="text"/>
+                    </div>
+                </group>
+                <group string="Tumble Rating">
+                    <div class="commongroup_description">
+                        <field name="Tumble_Rating" widget="text"/>
+
+                    </div>
+                </group>
+
+
+                <group string="Warranty">
+                    <div class="commongroup_description">
+                        <field name="Warranty" widget="text"/>
+
+                    </div>
+                </group>
+                <group string="Extended Service Options">
+                    <div class="commongroup_description">
+                        <field name="Extended_Service_Options" widget="text"/>
+                        <field name="Extended_Service_Options_2" widget="text"/>
+                        <field name="Extended_Service_Options_3" widget="text"/>
+                        <field name="Extended_Service_Options_4" widget="text"/>
+
+                        <field name="Extended_Service_Options_5" widget="text"/>
+                        <field name="Extended_Service_Options_6" widget="text"/>
+
+                        <field name="Extended_Service_Options_7" widget="text"/>
+                        <field name="Extended_Service_Options_8" widget="text"/>
+                        <field name="Extended_Service_Options_9" widget="text"/>
+                        <field name="Extended_Service_Options_10" widget="text"/>
+                        <field name="Extended_Service_Options_11" widget="text"/>
+                        <field name="Extended_Service_Options_12" widget="text"/>
+                        <field name="Extended_Service_Options_13" widget="text"/>
+                        <field name="Extended_Service_Options_14" widget="text"/>
+                        <field name="Extended_Service_Options_15" widget="text"/>
+                    </div>
+                </group>
+                <group string="OS Support">
+                    <div class="commongroup_description">
+                        <field name="OS_Support" widget="text"/>
+
+                    </div>
+                </group>
+                <group string="Sealability">
+                    <div class="commongroup_description">
+                        <field name="Sealability" widget="text"/>
+
+                    </div>
+                </group>
+                <group string="What's in the Box">
+                    <div class="commongroup_description">
+                        <field name="What_in_the_Box" widget="text"/>
+
+                    </div>
+                </group>
+                <group string="Optional Accessories">
+                    <div class="commongroup_description">
+                        <field name="Optional_Accessories" widget="text"/>
+                        <field name="Optional_Accessories_2" widget="text"/>
+                        <field name="Optional_Accessories_3" widget="text"/>
+                        <field name="Optional_Accessories_4" widget="text"/>
+                        <field name="Optional_Accessories_5" widget="text"/>
+                        <field name="Optional_Accessories_6" widget="text"/>
+                    </div>
+                </group>
+
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

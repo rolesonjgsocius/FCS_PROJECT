@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="FCS_PAY_OLD.category_data">
+        <section class="categories_section">
+            <div class="category-accordion">
+                <t t-set="parent_categories" t-value="result.parent_categories or []"/>
+                <t t-if="parent_categories">
+                    <t t-foreach="parent_categories" t-as="category" t-key="category.id">
+                        <t t-call="FCS_PAY_OLD.category_recursive_temp">
+                            <t t-set="category" t-value="category"/>
+                        </t>
+                    </t>
+                </t>
+                <t t-else="">
+                    <p>No categories data available</p>
+                </t>
+            </div>
+        </section>
+    </t>
+    <t t-name="FCS_PAY_OLD.category_recursive_temp">
+        <div class="custom-dropdown" t-attf-data-category-id="{{category.id}}">
+            <t t-set="children" t-value="category.children or []"/>
+            <t t-set="isOpen" t-value="false"/>
+            <div class="accordion-header">
+                <a href="#"
+                   t-attf-class="custom-dropdown-toggle drop_active accordion-button {{ isOpen ? '' : 'collapsed' }}"
+                   t-attf-data-bs-target="#category{{category.id}}"
+                   t-att-aria-expanded="isOpen and 'true' or 'false'"
+                   t-attf-aria-controls="category{{category.id}}"
+                   t-att-data-name="category.name or ''"
+                   t-att-data-description="category.website_description or ''"
+                   t-att-data-parent-id="category.id or ''">
+                    <p style="margin-bottom: 0px;">
+                        <t t-esc="category.name or 'Unnamed Category'"/>
+                    </p>
+                    <t t-if="children.length">
+                        <!--<span style="margin-right: 5px;">
+                            <img src="/FCS_PAY_OLD/static/src/images/Vector(10).png" alt="dropdown icon"/>
+                        </span>-->
+                    </t>
+                </a>
+            </div>
+            <t t-if="children.length">
+                <ul t-attf-id="category{{category.id}}"
+                    t-attf-class="custom-dropdown-menu accordion-collapse collapse {{ isOpen ? 'show' : '' }}"
+                    t-attf-aria-labelledby="category_toggle_{{category.id}}">
+                    <t t-foreach="children" t-as="child_category" t-key="child_category.id">
+                        <li style="padding-left: 15px;">
+                            <t t-call="FCS_PAY_OLD.category_recursive_temp">
+                                <t t-set="category" t-value="child_category"/>
+                            </t>
+                        </li>
+                    </t>
+                </ul>
+            </t>
+        </div>
+    </t>
+</templates>

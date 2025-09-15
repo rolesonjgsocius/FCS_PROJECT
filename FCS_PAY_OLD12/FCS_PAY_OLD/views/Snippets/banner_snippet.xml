@@ -1,0 +1,39 @@
+
+<odoo>
+    <template id="snippet_add_banner" name="Add Banner Snippet">
+        <section class="s_banner_slider o_colored_level">
+            <t t-set="uniq" t-value="datetime.datetime.now().microsecond"/>
+            <div id="bannerCarousel" t-attf-id="myCarousel{{uniq}}" class="s_carousel carousel s_carousel_default slide" data-bs-ride="true" data-bs-interval="5000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container text-center py-0">
+                            <h1 class="o_default_snippet_text">Full Commerce Solutions</h1>
+                            <p class="o_default_snippet_text">Your Transformation Superstore</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container text-center py-0">
+                            <h1 class="o_default_snippet_text">Transformation as a Service</h1>
+                            <p class="o_default_snippet_text">Become a Full Commerce Solution for your clients and customers!</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+                <!-- Indicators -->
+                <div class="carousel-indicators o_not_editable" style="display: none !important;">
+                    <button type="button" t-attf-data-bs-target="#myCarousel{{uniq}}"
+                            data-bs-slide-to="0"
+                            class="active" aria-label="Carousel indicator"/>
+                    <button type="button" t-attf-data-bs-target="#myCarousel{{uniq}}"
+                            data-bs-slide-to="1"
+                            aria-label="Carousel indicator"/>
+                </div>
+            </div>
+        </section>
+    </template>
+</odoo>

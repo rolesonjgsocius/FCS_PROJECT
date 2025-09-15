@@ -1,0 +1,31 @@
+.custom_more_images{
+display:flex !important;
+}
+.custom_more_images img  {
+height: 125px;
+}
+.Descriptions_main_backend {
+display:grid;
+grid-template-columns:1fr 1fr;
+}
+.Descriptions_main_backend textarea{
+border-bottom:1px solid black;
+margin-right:10px;
+width: 90%;
+min-height: 25px !important;
+height:100% !important;
+}
+.commongroup_description{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap: 25px;}
+
+.commongroup_description textarea{
+border-bottom:1px solid black;
+
+}
+
+.commongroup_description > *:only-child {
+  grid-column: span 2; /* Make it take the full width */
+}
+

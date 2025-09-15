@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="sale.ComboConfiguratorDialog" t-inherit-mode="extension">
+        <button name="sale_combo_configurator_cancel_button" position="after">
+            <button
+                class="btn btn-info flex-grow-1 flex-md-grow-0"
+                t-if="this.props.isFrontend"
+                t-on-click="() => this.getQuote()"
+                t-att-disabled="!areAllCombosSelected"
+            >
+                Get a Quote
+            </button>
+        </button>
+    </t>
+</templates>

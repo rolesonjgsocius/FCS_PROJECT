@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <templates  xml:space="preserve">
+        <t t-name="cusotm" t-extend="website_sale.addToCartNotification">
+            <t t-jquery="a[href='/shop/cart']" t-operation="attributes">
+                <attribute name="style">color: #3662FF !important;</attribute>
+            </t>
+        </t>
+    </templates>
+</odoo>
+
+
+
+
+
