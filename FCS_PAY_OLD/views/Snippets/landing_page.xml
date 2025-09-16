@@ -4713,20 +4713,67 @@ bottom: -5px;
 
 
     <!--    new live demo-->
-<!-- Snippet Definition -->
-
-
-
 
   <!-- Snippet Definition -->
-<template id="custom_dropdown_snippet" name="Custom Dropdown Snippet">
+<!--<template id="custom_dropdown_snippet" name="Custom Dropdown Snippet">-->
+<!--    <section class="o_custom_dropdown_snippet" data-oe-type="snippet" data-oe-name="Dropdown Snippet">-->
+<!--        <div class="dropdown-wrapper">-->
+<!--            <label>Choose an option:</label>-->
+<!--            <select class="custom-dropdown form-select">-->
+<!--                <option value="1">Option 1</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </section>-->
+<!--</template>-->
+<!--<template id="custom_dropdown_snippet_options" inherit_id="website.snippet_options">-->
+<!--    <xpath expr="." position="inside">-->
+<!--        <div data-js="DropdownOptions" string="Dropdown" data-selector=".custom-dropdown">-->
+<!--            <we-row string="Add Option">-->
+<!--                <we-button string="Add Option" class="add-option-btn"/>-->
+<!--            </we-row>-->
+<!--            <we-row string="Remove Option">-->
+<!--                <we-button string="Remove Option" class="remove-option-btn"/>-->
+<!--            </we-row>-->
+<!--&lt;!&ndash;            <we-row string="Edit Option">&ndash;&gt;-->
+<!--&lt;!&ndash;                <we-button string="Edit Option" class="edit-option-btn"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            </we-row>&ndash;&gt;-->
+<!--            <we-row string="Option Text">-->
+<!--                <we-input string="Option Text" class="edit-option-input" placeholder="Enter option text"/>-->
+<!--            </we-row>-->
+<!--        </div>-->
+<!--    </xpath>-->
+<!--</template>-->
+
+
+
+
+   <template id="custom_dropdown_snippet" name="Custom Dropdown Snippet">
     <section class="o_custom_dropdown_snippet" data-oe-type="snippet" data-oe-name="Dropdown Snippet">
         <div class="dropdown-wrapper">
             <label>Choose an option:</label>
             <select class="custom-dropdown form-select">
-                <option value="1">Option 1</option>
+                <option value="option_1">Option 1</option>
             </select>
+            <div class="subbuttons-wrapper">
+                <!-- Subbuttons will be dynamically added here with data-option attribute -->
+            </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const dropdown = document.querySelector('.o_custom_dropdown_snippet .custom-dropdown');
+                const subbuttonsWrapper = document.querySelector('.o_custom_dropdown_snippet .subbuttons-wrapper');
+                if (dropdown &amp;&amp; subbuttonsWrapper) {
+                    const updateSubbuttons = () => {
+                        const selectedValue = dropdown.value;
+                        subbuttonsWrapper.querySelectorAll('button').forEach(button => {
+                            button.style.display = button.dataset.option === selectedValue ? '' : 'none';
+                        });
+                    };
+                    dropdown.addEventListener('change', updateSubbuttons);
+                    updateSubbuttons(); // Initial call to set correct subbuttons
+                }
+            });
+        </script>
     </section>
 </template>
 
@@ -4739,14 +4786,26 @@ bottom: -5px;
             <we-row string="Remove Option">
                 <we-button string="Remove Option" class="remove-option-btn"/>
             </we-row>
-<!--            <we-row string="Edit Option">-->
-<!--                <we-button string="Edit Option" class="edit-option-btn"/>-->
-<!--            </we-row>-->
             <we-row string="Option Text">
                 <we-input string="Option Text" class="edit-option-input" placeholder="Enter option text"/>
+            </we-row>
+            <we-row string="Add Subbutton">
+                <we-button string="Add Subbutton" class="add-subbutton-btn"/>
+            </we-row>
+            <we-row string="Remove Subbutton">
+                <we-button string="Remove Subbutton" class="remove-subbutton-btn"/>
+            </we-row>
+            <we-row string="Select Subbutton">
+                <select class="subbutton-select form-select">
+                    <option value="-1">Select a subbutton</option>
+                </select>
+            </we-row>
+            <we-row string="Subbutton Text">
+                <we-input string="Subbutton Text" class="edit-subbutton-input" placeholder="Enter subbutton text"/>
             </we-row>
         </div>
     </xpath>
 </template>
+
 
 </odoo>
