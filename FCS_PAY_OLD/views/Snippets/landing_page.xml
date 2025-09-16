@@ -4713,62 +4713,12 @@ bottom: -5px;
 
 
     <!--    new live demo-->
-<!--<template id="custom_dropdown_snippet" name="Custom Dropdown Snippet">-->
-<!--  <section class="o_custom_dropdown_snippet" data-oe-type="snippet" data-oe-name="Dropdown Snippet">-->
-<!--    <div class="dropdown-wrapper">-->
-<!--      <label>Choose an option:</label>-->
-<!--      <select class="custom-dropdown form-select">-->
-<!--        <option value="1">Option 1</option>-->
-<!--      </select>-->
-<!--    </div>-->
-<!--  </section>-->
-<!--</template>-->
-<!--<template id="custom_dropdown_snippet_options" inherit_id="website.snippet_options">-->
-<!--    <xpath expr="." position="inside">-->
-<!--        <div data-js="DropdownOptions" string="Dropdown" data-selector=".custom-dropdown">-->
-<!--            <we-row string="Manage Options">-->
-<!--                <we-button string="Add Option" data-action="addOption"/>-->
-<!--                <we-button string="Remove Option" data-action="removeOption"/>-->
-<!--            </we-row>-->
-<!--        </div>-->
-<!--    </xpath>-->
-<!--</template>-->
-
-<!--&lt;!&ndash; Snippet Definition &ndash;&gt;-->
-<!--    <template id="custom_dropdown_snippet" name="Custom Dropdown Snippet">-->
-<!--        <section class="o_custom_dropdown_snippet" data-oe-type="snippet" data-oe-name="Dropdown Snippet">-->
-<!--            <div class="dropdown-wrapper">-->
-<!--                <label>Choose an option:</label>-->
-<!--                <select class="custom-dropdown form-select">-->
-<!--                    <option value="1">Option 1</option>-->
-<!--                </select>-->
-<!--            </div>-->
-<!--        </section>-->
-<!--    </template>-->
-
-<!--    &lt;!&ndash; Snippet Options &ndash;&gt;-->
-<!--    <template id="custom_dropdown_snippet_options" inherit_id="website.snippet_options">-->
-<!--        <xpath expr="." position="inside">-->
-<!--&lt;!&ndash;            <div data-js="FCS_PAY_OLD.DropdownOptions" string="Dropdown" data-selector=".custom-dropdown">&ndash;&gt;-->
-<!--&lt;!&ndash;                <we-row string="Manage Options">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <we-button string="Add Option" data-action="addOption"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <we-button string="Remove Option" data-action="removeOption"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                </we-row>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--  <div data-js="DropdownOptions" string="Dropdown" data-selector=".custom-dropdown">-->
-<!--            <we-row string="Manage Options">-->
-<!--                &lt;!&ndash; data-action must match your method names exactly &ndash;&gt;-->
-<!--                <we-button string="Add Option" data-method="addOption"/>-->
-<!--                <we-button string="Remove Option" data-method="removeOption"/>-->
-<!--            </we-row>-->
-<!--        </div>-->
-
-<!--        </xpath>-->
-<!--    </template>-->
-
-
-
 <!-- Snippet Definition -->
+
+
+
+
+  <!-- Snippet Definition -->
 <template id="custom_dropdown_snippet" name="Custom Dropdown Snippet">
     <section class="o_custom_dropdown_snippet" data-oe-type="snippet" data-oe-name="Dropdown Snippet">
         <div class="dropdown-wrapper">
@@ -4783,15 +4733,20 @@ bottom: -5px;
 <template id="custom_dropdown_snippet_options" inherit_id="website.snippet_options">
     <xpath expr="." position="inside">
         <div data-js="DropdownOptions" string="Dropdown" data-selector=".custom-dropdown">
-            <we-row string="Manage Options">
-                <!-- Use class attribute directly instead of data-select-class -->
+            <we-row string="Add Option">
                 <we-button string="Add Option" class="add-option-btn"/>
+            </we-row>
+            <we-row string="Remove Option">
                 <we-button string="Remove Option" class="remove-option-btn"/>
+            </we-row>
+<!--            <we-row string="Edit Option">-->
+<!--                <we-button string="Edit Option" class="edit-option-btn"/>-->
+<!--            </we-row>-->
+            <we-row string="Option Text">
+                <we-input string="Option Text" class="edit-option-input" placeholder="Enter option text"/>
             </we-row>
         </div>
     </xpath>
 </template>
-
-
 
 </odoo>

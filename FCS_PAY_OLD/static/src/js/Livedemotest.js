@@ -1,25 +1,33 @@
 /** @odoo-module **/
 
-import options from "@web_editor/js/editor/snippets.options";
+import options from '@web_editor/js/editor/snippets.options';
 
-const { SnippetOptionWidget, registry: snippetOptionRegistry } = options;
+const { SnippetOptionWidget, registry: snippetOptionRegistry } = options || {};
 
-console.log("SnippetOptionWidget and registry loaded:", SnippetOptionWidget, snippetOptionRegistry);
+if (!SnippetOptionWidget || !snippetOptionRegistry) {
+    console.error('Failed to load SnippetOptionWidget or snippetOptionRegistry from @web_editor/js/editor/snippets.options');
+    throw new Error('Required dependencies are not available');
+}
 
 snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
+    /**
+     * Initialize the snippet with selectors and default index.
+     */
     init() {
-        console.log("Initializing DropdownOptions with args:", arguments);
         this._super(...arguments);
         this.selectors = {
             dropdown: '.custom-dropdown',
             addButton: '.add-option-btn',
             removeButton: '.remove-option-btn',
+            editInput: '.edit-option-input',
         };
-        console.log("Selectors set:", this.selectors);
+        this.selectedOptionIndex = 0; // Track the currently selected option
     },
 
+    /**
+     * Set up the dropdown and event listeners.
+     */
     async start() {
-        console.log("Starting DropdownOptions for target:", this.$target[0]);
         await this._super(...arguments);
 
         this.$dropdown = this.$target.is(this.selectors.dropdown)
@@ -27,104 +35,99 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
             : this.$target.find(this.selectors.dropdown);
 
         if (this.$dropdown.length) {
-            console.log(
-                "Dropdown found:",
-                this.$dropdown[0],
-                "Initial options count:",
-                this.$dropdown[0].options.length
-            );
+            // Default to the last option
+            const optionsLength = this.$dropdown[0].options.length;
+            if (optionsLength > 0) {
+                this.$dropdown[0].selectedIndex = optionsLength - 1;
+                this.selectedOptionIndex = this.$dropdown[0].selectedIndex;
+            }
+
+            // Bind change event to track selected option and update edit input
+            this.$dropdown.off('change.dropdownOptions').on('change.dropdownOptions', () => {
+                this.selectedOptionIndex = this.$dropdown[0].selectedIndex;
+                console.log('Dropdown changed, selected index:', this.selectedOptionIndex);
+                this._updateEditInput();
+            });
+            // Initial update of edit input field
+            this._updateEditInput();
         } else {
-            console.warn("No dropdown found with selector:", this.selectors.dropdown);
+            console.warn('No dropdown found with selector:', this.selectors.dropdown);
         }
 
-        // Attach event listeners to buttons
-        this._bindButtonEvents();
-    },
+        // Attach event listeners to buttons and input
+        this.$addButton = this.$el.find(this.selectors.addButton);
+        if (this.$addButton.length) {
+            this.$addButton.off('click.dropdownOptions').on('click.dropdownOptions', () => {
+                console.log('Add button clicked for selected option');
+                this.addOption(false);
+            });
+        } else {
+            console.warn('Add button not found with selector:', this.selectors.addButton);
+        }
 
-    //--------------------------------------------------------------------------
-    // Event Binding
-    //--------------------------------------------------------------------------
+        this.$removeButton = this.$el.find(this.selectors.removeButton);
+        if (this.$removeButton.length) {
+            this.$removeButton.off('click.dropdownOptions').on('click.dropdownOptions', () => {
+                console.log('Remove button clicked for selected option');
+                this.removeOption(false);
+            });
+        } else {
+            console.warn('Remove button not found with selector:', this.selectors.removeButton);
+        }
 
-    _bindButtonEvents() {
-        const bindButtons = () => {
-            const $addButton = $(document).find(this.selectors.addButton);
-            const $removeButton = $(document).find(this.selectors.removeButton);
-
-            // Debugging: Log the DOM context
-            console.log("Searching for buttons. Add button found:", $addButton.length, "Remove button found:", $removeButton.length);
-            console.log("Snippet target:", this.$target[0]);
-            console.log("Closest .o_we_inplace_editor:", this.$target.closest('.o_we_inplace_editor')[0] || "Not found");
-            console.log("Options panel:", $('.o_website_snippet_options')[0] || "Not found");
-
-            if ($addButton.length) {
-                $addButton.off('click.dropdownOptions').on('click.dropdownOptions', (event) => {
-                    console.log("Add button clicked");
-                    this.addOption(false);
-                });
-                console.log("Add button event listener attached");
-            } else {
-                console.warn("Add button not found with selector:", this.selectors.addButton);
-            }
-
-            if ($removeButton.length) {
-                $removeButton.off('click.dropdownOptions').on('click.dropdownOptions', (event) => {
-                    console.log("Remove button clicked");
-                    this.removeOption(false);
-                });
-                console.log("Remove button event listener attached");
-            } else {
-                console.warn("Remove button not found with selector:", this.selectors.removeButton);
-            }
-        };
-
-        // Initial attempt to bind buttons
-        bindButtons();
-
-        // Watch for DOM changes to rebind buttons if they appear later
-        const observer = new MutationObserver((mutations) => {
-            console.log("DOM changed, attempting to rebind buttons");
-            bindButtons();
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
+        this.$editInput = this.$el.find(this.selectors.editInput).find('input[type="text"]');
+        if (this.$editInput.length) {
+            this.$editInput.off('input.dropdownOptions').on('input.dropdownOptions', (event) => {
+                const newText = event.currentTarget.value.trim();
+                console.log('Input changed, new text:', newText);
+                this._updateOptionText(this.selectedOptionIndex, newText);
+            });
+        } else {
+            console.warn('Edit input not found with selector:', this.selectors.editInput);
+        }
     },
 
     //--------------------------------------------------------------------------
     // Action Methods
     //--------------------------------------------------------------------------
 
-    async addOption(previewMode, widgetValue, params) {
-        console.log("addOption called. previewMode:", previewMode);
+    /**
+     * Add a new option to the dropdown.
+     * @param {Boolean} previewMode - Whether in preview mode.
+     */
+    async addOption(previewMode) {
         if (previewMode || previewMode === 'reset') {
-            console.log("Preview/reset mode → skipping permanent add.");
             return;
         }
         if (!this.$dropdown.length) {
-            console.error("No dropdown found → cannot add option.");
+            console.error('No dropdown found → cannot add option.');
             return;
         }
 
         this._addOption();
+        this._updateEditInput();
         if (this.options.wysiwyg?.odooEditor) {
             this.options.wysiwyg.odooEditor.historyStep();
-            console.log("History step recorded (undo/redo available).");
         }
     },
 
-    async removeOption(previewMode, widgetValue, params) {
-        console.log("removeOption called. previewMode:", previewMode);
+    /**
+     * Remove the selected option from the dropdown.
+     * @param {Boolean} previewMode - Whether in preview mode.
+     */
+    async removeOption(previewMode) {
         if (previewMode || previewMode === 'reset') {
-            console.log("Preview/reset mode → skipping permanent remove.");
             return;
         }
         if (!this.$dropdown.length) {
-            console.error("No dropdown found → cannot remove option.");
+            console.error('No dropdown found → cannot remove option.');
             return;
         }
 
         this._removeOption();
+        this._updateEditInput();
         if (this.options.wysiwyg?.odooEditor) {
             this.options.wysiwyg.odooEditor.historyStep();
-            console.log("History step recorded (undo/redo available).");
         }
     },
 
@@ -132,35 +135,90 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
     // Helpers
     //--------------------------------------------------------------------------
 
+    /**
+     * Add a new option to the dropdown.
+     * @private
+     */
     _addOption() {
-        console.log("Adding new option. Current count:", this.$dropdown[0].options.length);
-        const optionCount = this.$dropdown[0].options.length + 1;
+        const options = this.$dropdown[0].options;
         const newOption = document.createElement('option');
-        newOption.value = optionCount;
+        const optionCount = options.length + 1;
+        newOption.value = `option_${optionCount}`;
         newOption.textContent = `Option ${optionCount}`;
-        this.$dropdown[0].appendChild(newOption);
-        console.log(`Added option: value=${newOption.value}, text=${newOption.textContent}`);
+        // Insert the new option after the currently selected option
+        const reference = options[this.selectedOptionIndex + 1] || null;
+        this.$dropdown[0].insertBefore(newOption, reference);
+        this.selectedOptionIndex += 1; // Select the new option
+        this.$dropdown[0].selectedIndex = this.selectedOptionIndex;
+        console.log('Added option:', newOption.textContent, 'at index:', this.selectedOptionIndex);
         this.trigger_up('content_changed');
     },
 
+    /**
+     * Remove the selected option from the dropdown.
+     * @private
+     */
     _removeOption() {
-        console.log("Removing last option. Current count:", this.$dropdown[0].options.length);
         const options = this.$dropdown[0].options;
-        if (options.length > 1) {
-            const removed = options[options.length - 1];
+        if (options.length > 1 && this.selectedOptionIndex >= 0) {
+            const removed = options[this.selectedOptionIndex];
             removed.remove();
-            console.log(`Removed option: value=${removed.value}, text=${removed.textContent}`);
+            console.log('Removed option:', removed.textContent, 'at index:', this.selectedOptionIndex);
+            // Adjust selected index
+            if (this.selectedOptionIndex >= options.length) {
+                this.selectedOptionIndex = options.length - 1;
+            }
+            this.$dropdown[0].selectedIndex = this.selectedOptionIndex;
             this.trigger_up('content_changed');
         } else {
-            console.warn("Cannot remove option: only one left.");
+            console.warn('Cannot remove option: only one left or invalid index.');
         }
     },
 
+    /**
+     * Update the text of the selected option.
+     * @private
+     * @param {Number} index - Index of the option to update.
+     * @param {String} newText - New text for the option.
+     */
+    _updateOptionText(index, newText) {
+        console.log('Updating option at index:', index, 'with text:', newText);
+        if (!newText) {
+            console.warn('Empty text, skipping update');
+            return; // Don't update if input is empty
+        }
+        const option = this.$dropdown[0].options[index];
+        if (option) {
+            option.textContent = newText;
+            option.value = newText; // Update value to keep consistency
+            console.log('Updated option text to:', option.textContent);
+            this.trigger_up('content_changed');
+            if (this.options.wysiwyg?.odooEditor) {
+                this.options.wysiwyg.odooEditor.historyStep();
+            }
+        } else {
+            console.error('Option at index', index, 'not found.');
+        }
+    },
+
+    /**
+     * Update the edit input field with the selected option's text.
+     * @private
+     */
+    _updateEditInput() {
+        if (this.$editInput && this.$editInput.length) {
+            const option = this.$dropdown[0].options[this.selectedOptionIndex];
+            const currentText = option ? option.textContent : '';
+            this.$editInput.val(currentText);
+            console.log('Updated edit input with text:', currentText, 'for index:', this.selectedOptionIndex);
+        }
+    },
+
+    /**
+     * Compute visibility of the snippet options.
+     * @private
+     */
     _computeVisibility() {
-        const visible = this.$dropdown && this.$dropdown.length > 0;
-        console.log("Compute visibility → dropdown exists?", visible);
-        return visible;
+        return this.$dropdown && this.$dropdown.length > 0;
     },
 });
-
-console.log("DropdownOptions registered in snippet options registry.");
