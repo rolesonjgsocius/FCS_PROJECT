@@ -1,6 +1,8 @@
+
 /** @odoo-module **/
 
 import options from '@web_editor/js/editor/snippets.options';
+import { uniqueId } from '@web/core/utils/functions';
 
 const { SnippetOptionWidget, registry: snippetOptionRegistry } = options || {};
 
@@ -26,20 +28,22 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
             removeSubbuttonButton: '.remove-subbutton-btn',
             subbuttonSelect: '.subbutton-select',
             editSubbuttonInput: '.edit-subbutton-input',
+            containersWrapper: '.containers-wrapper',
         };
-        this.selectedOptionIndex = 0; // Track the currently selected dropdown option
-        this.selectedSubbuttonIndex = -1; // Track the currently selected subbutton, default to -1 (none)
+        this.selectedOptionIndex = 0;
+        this.selectedSubbuttonIndex = -1;
+        console.debug('Initialized DropdownOptions with selectors:', this.selectors);
     },
 
     /**
-     * Set up the dropdown, subbuttons, and event listeners.
+     * Set up the dropdown, subbuttons, containers, and event listeners.
      */
     async start() {
         try {
             await this._super(...arguments);
 
-            // Ensure $target is the snippet root
             this.$snippet = this.$target.closest(this.selectors.snippet);
+            console.debug('Snippet root found:', this.$snippet.length ? 'Yes' : 'No');
             if (!this.$snippet.length) {
                 console.error('No snippet root found with selector:', this.selectors.snippet);
                 return;
@@ -47,40 +51,42 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
 
             this.$dropdown = this.$snippet.find(this.selectors.dropdown);
             this.$subbuttonsWrapper = this.$snippet.find(this.selectors.subbuttonsWrapper);
+            this.$containersWrapper = this.$snippet.find(this.selectors.containersWrapper);
 
-            console.log('Snippet root:', this.$snippet);
-            console.log('Dropdown:', this.$dropdown);
-            console.log('Subbuttons wrapper:', this.$subbuttonsWrapper);
+            console.debug('Dropdown found:', this.$dropdown.length ? 'Yes' : 'No');
+            console.debug('Subbuttons wrapper found:', this.$subbuttonsWrapper.length ? 'Yes' : 'No');
+            console.debug('Containers wrapper found:', this.$containersWrapper.length ? 'Yes' : 'No');
 
             if (this.$dropdown.length) {
-                // Default to the last dropdown option
                 const optionsLength = this.$dropdown[0].options.length;
+                console.debug('Dropdown options length:', optionsLength);
                 if (optionsLength > 0) {
-                    this.$dropdown[0].selectedIndex = optionsLength - 1;
-                    this.selectedOptionIndex = this.$dropdown[0].selectedIndex;
+                    this.$dropdown[0].selectedIndex = 0;
+                    this.selectedOptionIndex = 0;
+                    console.debug('Set initial selectedOptionIndex:', this.selectedOptionIndex);
                 }
 
-                // Bind change event to track selected option and update subbuttons
                 this.$dropdown.off('change.dropdownOptions').on('change.dropdownOptions', () => {
                     this.selectedOptionIndex = this.$dropdown[0].selectedIndex;
-                    console.log('Dropdown changed, selected index:', this.selectedOptionIndex);
+                    this.selectedSubbuttonIndex = -1;
+                    console.debug('Dropdown changed, selectedOptionIndex:', this.selectedOptionIndex, 'selectedSubbuttonIndex:', this.selectedSubbuttonIndex);
                     this._updateEditInput();
                     this._updateSubbuttonDisplay();
                     this._updateSubbuttonSelect();
+                    this._updateContainerDisplay();
                 });
-                // Initial update of edit input and subbutton display
                 this._updateEditInput();
                 this._updateSubbuttonDisplay();
                 this._updateSubbuttonSelect();
+                this._updateContainerDisplay();
             } else {
                 console.warn('No dropdown found with selector:', this.selectors.dropdown);
             }
 
-            // Attach event listeners to buttons and inputs
             this.$addButton = this.$el.find(this.selectors.addButton);
             if (this.$addButton.length) {
                 this.$addButton.off('click.dropdownOptions').on('click.dropdownOptions', () => {
-                    console.log('Add option button clicked');
+                    console.debug('Add option button clicked');
                     this.addOption(false);
                 });
             } else {
@@ -90,7 +96,7 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
             this.$removeButton = this.$el.find(this.selectors.removeButton);
             if (this.$removeButton.length) {
                 this.$removeButton.off('click.dropdownOptions').on('click.dropdownOptions', () => {
-                    console.log('Remove option button clicked');
+                    console.debug('Remove option button clicked');
                     this.removeOption(false);
                 });
             } else {
@@ -101,7 +107,7 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
             if (this.$editInput.length) {
                 this.$editInput.off('input.dropdownOptions').on('input.dropdownOptions', (event) => {
                     const newText = event.currentTarget.value.trim();
-                    console.log('Option input changed, new text:', newText);
+                    console.debug('Option input changed, new text:', newText);
                     this._updateOptionText(this.selectedOptionIndex, newText);
                 });
             } else {
@@ -111,7 +117,7 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
             this.$addSubbuttonButton = this.$el.find(this.selectors.addSubbuttonButton);
             if (this.$addSubbuttonButton.length) {
                 this.$addSubbuttonButton.off('click.dropdownOptions').on('click.dropdownOptions', () => {
-                    console.log('Add subbutton button clicked');
+                    console.debug('Add subbutton button clicked');
                     this.addSubbutton(false);
                 });
             } else {
@@ -121,7 +127,7 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
             this.$removeSubbuttonButton = this.$el.find(this.selectors.removeSubbuttonButton);
             if (this.$removeSubbuttonButton.length) {
                 this.$removeSubbuttonButton.off('click.dropdownOptions').on('click.dropdownOptions', () => {
-                    console.log('Remove subbutton button clicked');
+                    console.debug('Remove subbutton button clicked');
                     this.removeSubbutton(false);
                 });
             } else {
@@ -132,7 +138,9 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
             if (this.$subbuttonSelect.length) {
                 this.$subbuttonSelect.off('change.dropdownOptions').on('change.dropdownOptions', (ev) => {
                     this.selectedSubbuttonIndex = parseInt(ev.target.value, 10);
+                    console.debug('Subbutton select changed, selectedSubbuttonIndex:', this.selectedSubbuttonIndex);
                     this._updateSubbuttonInput();
+                    this._updateContainerDisplay();
                 });
             } else {
                 console.warn('Subbutton select not found with selector:', this.selectors.subbuttonSelect);
@@ -142,12 +150,26 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
             if (this.$editSubbuttonInput.length) {
                 this.$editSubbuttonInput.off('input.dropdownOptions').on('input.dropdownOptions', (event) => {
                     const newText = event.currentTarget.value.trim();
-                    console.log('Subbutton input changed, new text:', newText);
+                    console.debug('Subbutton input changed, new text:', newText);
                     this._updateSubbuttonText(this.selectedSubbuttonIndex, newText);
                 });
             } else {
                 console.warn('Edit subbutton input not found with selector:', this.selectors.editSubbuttonInput);
             }
+
+            this.$subbuttonsWrapper.off('click.dropdownOptions').on('click.dropdownOptions', 'button', (ev) => {
+                const optionValue = ev.currentTarget.dataset.option;
+                const $button = $(ev.currentTarget);
+                const subbuttons = this.$subbuttonsWrapper.find(`button[data-option="${optionValue}"]`);
+                const subbuttonIndex = subbuttons.index($button);
+                this.selectedSubbuttonIndex = subbuttonIndex;
+                console.debug('Subbutton clicked, optionValue:', optionValue, 'subbuttonIndex:', subbuttonIndex);
+                this.$subbuttonsWrapper.find('button').removeClass('active');
+                $(ev.currentTarget).addClass('active');
+                this._updateSubbuttonSelect();
+                this._updateSubbuttonInput();
+                this._updateContainerDisplay();
+            });
         } catch (error) {
             console.error('Error in start method:', error);
             throw error;
@@ -158,89 +180,85 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
     // Action Methods
     //--------------------------------------------------------------------------
 
-    /**
-     * Add a new option to the dropdown.
-     * @param {Boolean} previewMode - Whether in preview mode.
-     */
     async addOption(previewMode) {
         if (previewMode || previewMode === 'reset') {
+            console.debug('addOption skipped: previewMode or reset');
             return;
         }
-        if (!this.$dropdown || !this.$dropdown.length) {
-            console.error('No dropdown found → cannot add option.');
+        if (!this.$dropdown || !this.$dropdown.length || !this.$containersWrapper || !this.$containersWrapper.length) {
+            console.error('No dropdown or containers wrapper found → cannot add option.');
             return;
         }
 
+        console.debug('Adding new option, current selectedOptionIndex:', this.selectedOptionIndex);
         this._addOption();
         this._updateEditInput();
         this._updateSubbuttonDisplay();
         this._updateSubbuttonSelect();
+        this._updateContainerDisplay();
         if (this.options.wysiwyg?.odooEditor) {
             this.options.wysiwyg.odooEditor.historyStep();
         }
     },
 
-    /**
-     * Remove the selected option from the dropdown.
-     * @param {Boolean} previewMode - Whether in preview mode.
-     */
     async removeOption(previewMode) {
         if (previewMode || previewMode === 'reset') {
+            console.debug('removeOption skipped: previewMode or reset');
             return;
         }
-        if (!this.$dropdown || !this.$dropdown.length) {
-            console.error('No dropdown found → cannot remove option.');
+        if (!this.$dropdown || !this.$dropdown.length || !this.$containersWrapper || !this.$containersWrapper.length) {
+            console.error('No dropdown or containers wrapper found → cannot remove option.');
             return;
         }
 
+        console.debug('Removing option, current selectedOptionIndex:', this.selectedOptionIndex);
         this._removeOption();
         this._updateEditInput();
         this._updateSubbuttonDisplay();
         this._updateSubbuttonSelect();
+        this._updateContainerDisplay();
         if (this.options.wysiwyg?.odooEditor) {
             this.options.wysiwyg.odooEditor.historyStep();
         }
     },
 
-    /**
-     * Add a new subbutton for the selected dropdown option.
-     * @param {Boolean} previewMode - Whether in preview mode.
-     */
     async addSubbutton(previewMode) {
         if (previewMode || previewMode === 'reset') {
+            console.debug('addSubbutton skipped: previewMode or reset');
             return;
         }
-        if (!this.$dropdown || !this.$dropdown.length || !this.$subbuttonsWrapper || !this.$subbuttonsWrapper.length) {
-            console.error('No dropdown or subbuttons wrapper found → cannot add subbutton.');
+        if (!this.$dropdown || !this.$dropdown.length || !this.$subbuttonsWrapper || !this.$subbuttonsWrapper.length || !this.$containersWrapper || !this.$containersWrapper.length) {
+            console.error('No dropdown, subbuttons wrapper, or containers wrapper found → cannot add subbutton.');
             return;
         }
 
+        console.debug('Adding subbutton, current selectedOptionIndex:', this.selectedOptionIndex);
         this._addSubbutton();
         this._updateSubbuttonDisplay();
         this._updateSubbuttonSelect();
         this._updateSubbuttonInput();
+        this._updateContainerDisplay();
         if (this.options.wysiwyg?.odooEditor) {
             this.options.wysiwyg.odooEditor.historyStep();
         }
     },
 
-    /**
-     * Remove the selected subbutton for the selected dropdown option.
-     * @param {Boolean} previewMode - Whether in preview mode.
-     */
     async removeSubbutton(previewMode) {
         if (previewMode || previewMode === 'reset') {
+            console.debug('removeSubbutton skipped: previewMode or reset');
             return;
         }
-        if (!this.$dropdown || !this.$dropdown.length || !this.$subbuttonsWrapper || !this.$subbuttonsWrapper.length) {
-            console.error('No dropdown or subbuttons wrapper found → cannot remove subbutton.');
+        if (!this.$dropdown || !this.$dropdown.length || !this.$subbuttonsWrapper || !this.$subbuttonsWrapper.length || !this.$containersWrapper || !this.$containersWrapper.length) {
+            console.error('No dropdown, subbuttons wrapper, or containers wrapper found → cannot remove subbutton.');
             return;
         }
 
+        console.debug('Removing subbutton, current selectedSubbuttonIndex:', this.selectedSubbuttonIndex);
         this._removeSubbutton();
         this._updateSubbuttonDisplay();
         this._updateSubbuttonSelect();
         this._updateSubbuttonInput();
+        this._updateContainerDisplay();
         if (this.options.wysiwyg?.odooEditor) {
             this.options.wysiwyg.odooEditor.historyStep();
         }
@@ -250,69 +268,75 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
     // Helpers
     //--------------------------------------------------------------------------
 
-    /**
-     * Add a new option to the dropdown.
-     * @private
-     */
+    _createContainer(optionValue, subbuttonIndex, content = '') {
+        const $container = $('<div>').addClass('option-container').attr('data-option', optionValue);
+        if (subbuttonIndex !== undefined) {
+            $container.attr('data-subbutton', subbuttonIndex);
+        }
+        $container.attr('id', uniqueId('container_'));
+        if (content) {
+            $container.html(content);
+        } else {
+            $container.append('<div class="oe_structure"></div>');
+        }
+        this.$containersWrapper.append($container);
+        console.debug('Created container for option:', optionValue, 'subbutton:', subbuttonIndex, 'id:', $container.attr('id'), 'content:', $container.html());
+        if (this.options.wysiwyg) {
+            this.options.wysiwyg.odooEditor.observerUnactive();
+            this.trigger_up('content_changed', { $target: $container });
+            this.options.wysiwyg.odooEditor.observerActive();
+        }
+        return $container;
+    },
+
     _addOption() {
         const options = this.$dropdown[0].options;
-        const newOption = document.createElement('option');
         const optionCount = options.length + 1;
-        newOption.value = `option_${optionCount}`;
+        const newOptionValue = uniqueId('opt_');
+        const newOption = document.createElement('option');
+        newOption.value = newOptionValue;
         newOption.textContent = `Option ${optionCount}`;
-        const reference = options[this.selectedOptionIndex + 1] || null;
-        this.$dropdown[0].insertBefore(newOption, reference);
-        this.selectedOptionIndex += 1;
+        this.$dropdown[0].appendChild(newOption);
+        this.selectedOptionIndex = options.length;
         this.$dropdown[0].selectedIndex = this.selectedOptionIndex;
-        console.log('Added option:', newOption.textContent, 'at index:', this.selectedOptionIndex);
+        this._createContainer(newOptionValue);
+        console.debug('Added option:', newOption.textContent, 'value:', newOptionValue, 'at index:', this.selectedOptionIndex);
         this.trigger_up('content_changed');
     },
 
-    /**
-     * Remove the selected option and its subbuttons.
-     * @private
-     */
     _removeOption() {
         const options = this.$dropdown[0].options;
         if (options.length > 1 && this.selectedOptionIndex >= 0) {
             const removed = options[this.selectedOptionIndex];
             const optionValue = removed.value;
             removed.remove();
-            // Remove associated subbuttons
             this.$subbuttonsWrapper.find(`button[data-option="${optionValue}"]`).remove();
-            console.log('Removed option:', removed.textContent, 'at index:', this.selectedOptionIndex);
+            this.$containersWrapper.find(`.option-container[data-option="${optionValue}"]`).remove();
+            console.debug('Removed option:', removed.textContent, 'value:', optionValue, 'at index:', this.selectedOptionIndex);
             if (this.selectedOptionIndex >= options.length) {
                 this.selectedOptionIndex = options.length - 1;
             }
             this.$dropdown[0].selectedIndex = this.selectedOptionIndex;
+            console.debug('Updated selectedOptionIndex after removal:', this.selectedOptionIndex);
             this.trigger_up('content_changed');
         } else {
             console.warn('Cannot remove option: only one left or invalid index.');
         }
     },
 
-    /**
-     * Update the text of the selected option.
-     * @private
-     * @param {Number} index - Index of the option to update.
-     * @param {String} newText - New text for the option.
-     */
     _updateOptionText(index, newText) {
-        console.log('Updating option at index:', index, 'with text:', newText);
+        console.debug('Updating option at index:', index, 'with text:', newText);
         if (!newText) {
             console.warn('Empty text, skipping option update');
             return;
         }
         const option = this.$dropdown[0].options[index];
         if (option) {
-            const oldValue = option.value;
             option.textContent = newText;
-            option.value = newText.replace(/\s+/g, '_').toLowerCase(); // Update value
-            // Update subbutton data-option attributes
-            this.$subbuttonsWrapper.find(`button[data-option="${oldValue}"]`).attr('data-option', option.value);
-            console.log('Updated option text to:', option.textContent);
+            console.debug('Updated option text to:', option.textContent);
             this._updateSubbuttonDisplay();
             this._updateSubbuttonSelect();
+            this._updateContainerDisplay();
             this.trigger_up('content_changed');
             if (this.options.wysiwyg?.odooEditor) {
                 this.options.wysiwyg.odooEditor.historyStep();
@@ -322,10 +346,6 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         }
     },
 
-    /**
-     * Add a new subbutton for the selected dropdown option.
-     * @private
-     */
     _addSubbutton() {
         const selectedOption = this.$dropdown[0].options[this.selectedOptionIndex];
         if (!selectedOption) {
@@ -336,17 +356,31 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         const subbuttonCount = this.$subbuttonsWrapper.find(`button[data-option="${optionValue}"]`).length + 1;
         const newSubbutton = document.createElement('button');
         newSubbutton.setAttribute('data-option', optionValue);
+        newSubbutton.setAttribute('data-subbutton', subbuttonCount - 1);
         newSubbutton.textContent = `Button ${subbuttonCount}`;
         this.$subbuttonsWrapper[0].appendChild(newSubbutton);
         this.selectedSubbuttonIndex = subbuttonCount - 1;
-        console.log('Added subbutton:', newSubbutton.textContent, 'for option:', optionValue);
+        // Transfer content from option container to new subbutton container if first subbutton
+        const $optionContainer = this.$containersWrapper.find(`.option-container[data-option="${optionValue}"]:not([data-subbutton])`);
+        const content = $optionContainer.length ? $optionContainer.html() : '';
+        console.debug('Adding subbutton for option:', optionValue, 'subbutton index:', subbuttonCount - 1, 'transferring content:', content);
+        if ($optionContainer.length && subbuttonCount === 1) {
+            $optionContainer.remove();
+            console.debug('Removed option container for option:', optionValue, 'to create subbutton container');
+        }
+        this._createContainer(optionValue, subbuttonCount - 1, content);
+        console.debug('Added subbutton:', newSubbutton.textContent, 'for option:', optionValue, 'index:', this.selectedSubbuttonIndex);
+        // Protect option_1 content if not the selected option
+        if (optionValue !== 'option_1') {
+            const $option1Container = this.$containersWrapper.find(`.option-container[data-option="option_1"]:not([data-subbutton])`);
+            if ($option1Container.length && !$option1Container.html()) {
+                $option1Container.html('<div class="oe_structure"></div>');
+                console.debug('Restored empty content for option_1');
+            }
+        }
         this.trigger_up('content_changed');
     },
 
-    /**
-     * Remove the selected subbutton for the selected dropdown option.
-     * @private
-     */
     _removeSubbutton() {
         if (this.selectedSubbuttonIndex < 0) {
             console.warn('No subbutton selected to remove.');
@@ -361,10 +395,29 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         const subbuttons = this.$subbuttonsWrapper.find(`button[data-option="${optionValue}"]`);
         if (subbuttons.length > 0 && this.selectedSubbuttonIndex >= 0) {
             const removed = subbuttons[this.selectedSubbuttonIndex];
+            const removedIndex = parseInt(removed.dataset.subbutton, 10);
+            const $removedContainer = this.$containersWrapper.find(`.option-container[data-option="${optionValue}"][data-subbutton="${removedIndex}"]`);
+            const content = $removedContainer.length ? $removedContainer.html() : '';
+            console.debug('Removing subbutton for option:', optionValue, 'subbutton index:', removedIndex, 'content:', content);
             removed.remove();
-            console.log('Removed subbutton:', removed.textContent, 'for option:', optionValue);
+            $removedContainer.remove();
+            console.debug('Removed subbutton:', removed.textContent, 'for option:', optionValue, 'subbutton index:', removedIndex);
+            // If no subbuttons remain, create an option container and transfer content
+            if (subbuttons.length === 1) {
+                this._createContainer(optionValue, undefined, content);
+                console.debug('Created option container for option:', optionValue, 'after removing last subbutton');
+            }
             if (this.selectedSubbuttonIndex >= subbuttons.length - 1) {
                 this.selectedSubbuttonIndex = subbuttons.length - 2;
+            }
+            console.debug('Updated selectedSubbuttonIndex after removal:', this.selectedSubbuttonIndex);
+            // Protect option_1 content
+            if (optionValue !== 'option_1') {
+                const $option1Container = this.$containersWrapper.find(`.option-container[data-option="option_1"]:not([data-subbutton])`);
+                if ($option1Container.length && !$option1Container.html()) {
+                    $option1Container.html('<div class="oe_structure"></div>');
+                    console.debug('Restored empty content for option_1');
+                }
             }
             this.trigger_up('content_changed');
         } else {
@@ -372,18 +425,12 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         }
     },
 
-    /**
-     * Update the text of the selected subbutton.
-     * @private
-     * @param {Number} index - Index of the subbutton to update.
-     * @param {String} newText - New text for the subbutton.
-     */
     _updateSubbuttonText(index, newText) {
         if (index < 0) {
             console.warn('No subbutton selected to update.');
             return;
         }
-        console.log('Updating subbutton at index:', index, 'with text:', newText);
+        console.debug('Updating subbutton at index:', index, 'with text:', newText);
         if (!newText) {
             console.warn('Empty text, skipping subbutton update');
             return;
@@ -398,7 +445,9 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         const subbutton = subbuttons[index];
         if (subbutton) {
             subbutton.textContent = newText;
-            console.log('Updated subbutton text to:', subbutton.textContent);
+            console.debug('Updated subbutton text to:', subbutton.textContent);
+            this._updateSubbuttonSelect();
+            this._updateContainerDisplay();
             this.trigger_up('content_changed');
             if (this.options.wysiwyg?.odooEditor) {
                 this.options.wysiwyg.odooEditor.historyStep();
@@ -408,10 +457,6 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         }
     },
 
-    /**
-     * Update the display of subbuttons based on the selected dropdown option.
-     * @private
-     */
     _updateSubbuttonDisplay() {
         if (!this.$subbuttonsWrapper || !this.$subbuttonsWrapper.length) {
             console.warn('No subbuttons wrapper found.');
@@ -419,15 +464,21 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         }
         const selectedOption = this.$dropdown[0].options[this.selectedOptionIndex];
         const optionValue = selectedOption ? selectedOption.value : '';
-        this.$subbuttonsWrapper.find('button').hide();
-        this.$subbuttonsWrapper.find(`button[data-option="${optionValue}"]`).show();
-        console.log('Updated subbutton display for option:', optionValue);
+        this.$subbuttonsWrapper.find('button').hide().removeClass('active');
+        const $subbuttons = this.$subbuttonsWrapper.find(`button[data-option="${optionValue}"]`);
+        $subbuttons.show();
+        console.debug('Subbuttons found for option:', optionValue, 'count:', $subbuttons.length);
+        if ($subbuttons.length > 0 && this.selectedSubbuttonIndex >= 0 && this.selectedSubbuttonIndex < $subbuttons.length) {
+            $subbuttons.eq(this.selectedSubbuttonIndex).addClass('active');
+            console.debug('Set active subbutton at index:', this.selectedSubbuttonIndex);
+        } else if ($subbuttons.length > 0) {
+            $subbuttons.eq(0).addClass('active');
+            this.selectedSubbuttonIndex = 0;
+            console.debug('Set first subbutton as active, updated selectedSubbuttonIndex:', this.selectedSubbuttonIndex);
+        }
+        console.debug('Updated subbutton display for option:', optionValue);
     },
 
-    /**
-     * Update the subbutton select dropdown in the editor.
-     * @private
-     */
     _updateSubbuttonSelect() {
         if (!this.$subbuttonSelect || !this.$subbuttonSelect.length) {
             console.warn('No subbutton select found, skipping update.');
@@ -438,6 +489,7 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         const selectedOption = this.$dropdown[0].options[this.selectedOptionIndex];
         const optionValue = selectedOption ? selectedOption.value : '';
         const subbuttons = this.$subbuttonsWrapper.find(`button[data-option="${optionValue}"]`);
+        console.debug('Updating subbutton select, subbuttons count:', subbuttons.length);
         subbuttons.each((index, subbutton) => {
             this.$subbuttonSelect.append(`<option value="${index}">${subbutton.textContent}</option>`);
         });
@@ -445,16 +497,12 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         if (subbuttons.length > 0 && this.selectedSubbuttonIndex >= 0 && this.selectedSubbuttonIndex < subbuttons.length) {
             selectedValue = this.selectedSubbuttonIndex;
         } else {
-            this.selectedSubbuttonIndex = -1;
+            this.selectedSubbuttonIndex = subbuttons.length > 0 ? 0 : -1;
         }
         this.$subbuttonSelect.val(selectedValue);
-        console.log('Updated subbutton select with', subbuttons.length, 'options');
+        console.debug('Updated subbutton select with', subbuttons.length, 'options, selectedValue:', selectedValue);
     },
 
-    /**
-     * Update the edit subbutton input field with the selected subbutton's text.
-     * @private
-     */
     _updateSubbuttonInput() {
         if (!this.$editSubbuttonInput || !this.$editSubbuttonInput.length) {
             console.warn('No edit subbutton input found.');
@@ -462,11 +510,13 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         }
         if (this.selectedSubbuttonIndex < 0) {
             this.$editSubbuttonInput.val('');
+            console.debug('No subbutton selected, cleared editSubbuttonInput');
             return;
         }
         const selectedOption = this.$dropdown[0].options[this.selectedOptionIndex];
         if (!selectedOption) {
             this.$editSubbuttonInput.val('');
+            console.debug('No selected option, cleared editSubbuttonInput');
             return;
         }
         const optionValue = selectedOption.value;
@@ -474,13 +524,9 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         const subbutton = subbuttons[this.selectedSubbuttonIndex];
         const currentText = subbutton ? subbutton.textContent : '';
         this.$editSubbuttonInput.val(currentText);
-        console.log('Updated subbutton input with text:', currentText, 'for index:', this.selectedSubbuttonIndex);
+        console.debug('Updated subbutton input with text:', currentText, 'for index:', this.selectedSubbuttonIndex);
     },
 
-    /**
-     * Update the edit input field with the selected option's text.
-     * @private
-     */
     _updateEditInput() {
         if (!this.$editInput || !this.$editInput.length) {
             console.warn('No edit input found.');
@@ -489,14 +535,77 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         const option = this.$dropdown[0].options[this.selectedOptionIndex];
         const currentText = option ? option.textContent : '';
         this.$editInput.val(currentText);
-        console.log('Updated edit input with text:', currentText, 'for index:', this.selectedOptionIndex);
+        console.debug('Updated edit input with text:', currentText, 'for index:', this.selectedOptionIndex);
     },
 
-    /**
-     * Compute visibility of the snippet options.
-     * @private
-     */
+    _updateContainerDisplay() {
+        if (!this.$containersWrapper || !this.$containersWrapper.length) {
+            console.warn('No containers wrapper found.');
+            return;
+        }
+        const selectedOption = this.$dropdown[0].options[this.selectedOptionIndex];
+        const optionValue = selectedOption ? selectedOption.value : '';
+        console.debug('Updating container display, selectedOptionIndex:', this.selectedOptionIndex, 'optionValue:', optionValue, 'selectedSubbuttonIndex:', this.selectedSubbuttonIndex);
+
+        const allContainers = this.$containersWrapper.children('.option-container');
+        console.debug('All containers count:', allContainers.length);
+        allContainers.each((index, container) => {
+            console.debug(`Container ${index}: data-option=${container.dataset.option}, data-subbutton=${container.dataset.subbutton || 'none'}, content=${container.innerHTML}`);
+        });
+
+        allContainers.removeClass('active');
+        console.debug('Removed active class from all containers');
+
+        const subbuttons = this.$subbuttonsWrapper.find(`button[data-option="${optionValue}"]`);
+        console.debug('Subbuttons for option:', optionValue, 'count:', subbuttons.length);
+
+        if (subbuttons.length > 0 && this.selectedSubbuttonIndex >= 0 && this.selectedSubbuttonIndex < subbuttons.length) {
+            const subbuttonIndex = subbuttons.eq(this.selectedSubbuttonIndex).data('subbutton');
+            console.debug('Looking for subbutton container, subbuttonIndex:', subbuttonIndex);
+            const $container = this.$containersWrapper.children(`.option-container[data-option="${optionValue}"][data-subbutton="${subbuttonIndex}"]`);
+            console.debug('Subbutton container found:', $container.length ? 'Yes' : 'No', 'selector:', `.option-container[data-option="${optionValue}"][data-subbutton="${subbuttonIndex}"]`);
+            if ($container.length) {
+                $container.addClass('active');
+                console.debug('Activated subbutton container for option:', optionValue, 'subbutton:', subbuttonIndex, 'content:', $container.html());
+                if (this.options.wysiwyg) {
+                    this.options.wysiwyg.odooEditor.observerUnactive();
+                    this.trigger_up('content_changed', { $target: $container });
+                    this.options.wysiwyg.odooEditor.observerActive();
+                    this.options.wysiwyg.odooEditor.historyStep();
+                }
+            } else {
+                console.error('Subbutton container not found for option:', optionValue, 'subbutton:', subbuttonIndex);
+            }
+        } else {
+            const $container = this.$containersWrapper.children(`.option-container[data-option="${optionValue}"]:not([data-subbutton])`);
+            console.debug('Looking for option container, selector:', `.option-container[data-option="${optionValue}"]:not([data-subbutton])`);
+            console.debug('Option container found:', $container.length ? 'Yes' : 'No');
+            if ($container.length) {
+                $container.addClass('active');
+                console.debug('Activated option container for option:', optionValue, 'content:', $container.html());
+                if (this.options.wysiwyg) {
+                    this.options.wysiwyg.odooEditor.observerUnactive();
+                    this.trigger_up('content_changed', { $target: $container });
+                    this.options.wysiwyg.odooEditor.observerActive();
+                    this.options.wysiwyg.odooEditor.historyStep();
+                }
+            } else {
+                console.error('Option container not found for option:', optionValue);
+            }
+        }
+        // Ensure option_1 content is preserved
+        if (optionValue !== 'option_1') {
+            const $option1Container = this.$containersWrapper.find(`.option-container[data-option="option_1"]:not([data-subbutton])`);
+            if ($option1Container.length && !$option1Container.html()) {
+                $option1Container.html('<div class="oe_structure"></div>');
+                console.debug('Restored empty content for option_1');
+            }
+        }
+    },
+
     _computeVisibility() {
-        return this.$dropdown && this.$dropdown.length > 0;
+        const isVisible = this.$dropdown && this.$dropdown.length > 0;
+        console.debug('Computed visibility:', isVisible);
+        return isVisible;
     },
 });
