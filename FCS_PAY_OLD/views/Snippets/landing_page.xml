@@ -9,9 +9,10 @@
             <t t-snippet="FCS_PAY_OLD.FCS_PAY_HOME_copyright"
                t-thumbnail="/FCS_PAY_OLD/static/src/images/new_fcslogo.png"/>
             <t t-snippet="FCS_PAY_OLD.FCS_PAY_HOME3" t-thumbnail="/FCS_PAY_OLD/static/src/images/new_fcslogo.png"/>
-<!--            <t t-snippet="FCS_PAY_OLD.FCS_PAY_HOME4" t-thumbnail="/FCS_PAY_OLD/static/src/images/new_fcslogo.png"/>-->
+            <!--            <t t-snippet="FCS_PAY_OLD.FCS_PAY_HOME4" t-thumbnail="/FCS_PAY_OLD/static/src/images/new_fcslogo.png"/>-->
 
-                        <t t-snippet="FCS_PAY_OLD.custom_dropdown_snippet" t-thumbnail="/FCS_PAY_OLD/static/src/images/new_fcslogo.png"/>
+            <t t-snippet="FCS_PAY_OLD.custom_dropdown_snippet"
+               t-thumbnail="/FCS_PAY_OLD/static/src/images/new_fcslogo.png"/>
 
             <t t-snippet="FCS_PAY_OLD.FCS_PAY_HOME5" t-thumbnail="/FCS_PAY_OLD/static/src/images/new_fcslogo.png"/>
             <t t-snippet="FCS_PAY_OLD.snippet_add_banner" t-thumbnail="/FCS_PAY_OLD/static/src/images/new_fcslogo.png"/>
@@ -4713,96 +4714,209 @@ bottom: -5px;
 
 
     <!--    new live demo-->
-<!--   <template id="custom_dropdown_snippet" name="Custom Dropdown Snippet">-->
-<!--    <section class="o_custom_dropdown_snippet" data-oe-type="snippet" data-oe-name="Dropdown Snippet">-->
-<!--        <div class="dropdown-wrapper">-->
-<!--            <label>Choose an option:</label>-->
-<!--            <select class="custom-dropdown form-select">-->
-<!--                <option value="option_1">Option 1</option>-->
-<!--            </select>-->
-<!--            <div class="subbuttons-wrapper">-->
-<!--                &lt;!&ndash; Subbuttons will be dynamically added here with data-option attribute &ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <script>-->
-<!--            document.addEventListener('DOMContentLoaded', () => {-->
-<!--                const dropdown = document.querySelector('.o_custom_dropdown_snippet .custom-dropdown');-->
-<!--                const subbuttonsWrapper = document.querySelector('.o_custom_dropdown_snippet .subbuttons-wrapper');-->
-<!--                if (dropdown &amp;&amp; subbuttonsWrapper) {-->
-<!--                    const updateSubbuttons = () => {-->
-<!--                        const selectedValue = dropdown.value;-->
-<!--                        subbuttonsWrapper.querySelectorAll('button').forEach(button => {-->
-<!--                            button.style.display = button.dataset.option === selectedValue ? '' : 'none';-->
-<!--                        });-->
-<!--                    };-->
-<!--                    dropdown.addEventListener('change', updateSubbuttons);-->
-<!--                    updateSubbuttons(); // Initial call to set correct subbuttons-->
-<!--                }-->
-<!--            });-->
-<!--        </script>-->
-<!--    </section>-->
-<!--</template>-->
-<!--<template id="custom_dropdown_snippet_options" inherit_id="website.snippet_options">-->
-<!--    <xpath expr="." position="inside">-->
-<!--        <div data-js="DropdownOptions" string="Dropdown" data-selector=".custom-dropdown">-->
-<!--            <we-row string="Add Option">-->
-<!--                <we-button string="Add Option" class="add-option-btn"/>-->
-<!--            </we-row>-->
-<!--            <we-row string="Remove Option">-->
-<!--                <we-button string="Remove Option" class="remove-option-btn"/>-->
-<!--            </we-row>-->
-<!--            <we-row string="Option Text">-->
-<!--                <we-input string="Option Text" class="edit-option-input" placeholder="Enter option text"/>-->
-<!--            </we-row>-->
-<!--            <we-row string="Add Subbutton">-->
-<!--                <we-button string="Add Subbutton" class="add-subbutton-btn"/>-->
-<!--            </we-row>-->
-<!--            <we-row string="Remove Subbutton">-->
-<!--                <we-button string="Remove Subbutton" class="remove-subbutton-btn"/>-->
-<!--            </we-row>-->
-<!--            <we-row string="Select Subbutton">-->
-<!--                <select class="subbutton-select form-select">-->
-<!--                    <option value="-1">Select a subbutton</option>-->
-<!--                </select>-->
-<!--            </we-row>-->
-<!--            <we-row string="Subbutton Text">-->
-<!--                <we-input string="Subbutton Text" class="edit-subbutton-input" placeholder="Enter subbutton text"/>-->
-<!--            </we-row>-->
-<!--        </div>-->
-<!--    </xpath>-->
-<!--</template>-->
 
-<template id="custom_dropdown_snippet" name="Live Demo">
-    <section class="o_custom_dropdown_snippet mt-md-4" data-oe-type="snippet" data-oe-name="Dropdown Snippet">
-        <div class=" container dropdown-wrapper">
-            <select class="custom-dropdown form-select">
-                <option value="option_1">Option 1</option>
-            </select>
-            <div class="subbuttons-wrapper">
-                <!-- Subbuttons will be dynamically added here with data-option attribute -->
+    <!--<template id="custom_dropdown_snippet" name="Live Demo">-->
+    <!--    <section class="o_custom_dropdown_snippet mt-md-4" data-oe-type="snippet" data-oe-name="Dropdown Snippet">-->
+    <!--        <div class=" container dropdown-wrapper">-->
+    <!--            <select class="custom-dropdown form-select">-->
+    <!--                <option value="option_1">Option 1</option>-->
+    <!--            </select>-->
+    <!--            <div class="subbuttons-wrapper">-->
+    <!--                &lt;!&ndash; Subbuttons will be dynamically added here with data-option attribute &ndash;&gt;-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div style="height: 100%;min-height:500px; box-shadow: 0px 4px 11.5px 0px #00000080; border-radius: 8px;margin-top: 20px;" class="containers-wrapper container">-->
+    <!--            &lt;!&ndash; Containers for options and subbuttons will be added here &ndash;&gt;-->
+    <!--            <div class="option-container h-100" data-option="option_1">-->
+    <!--                <div class="oe_structure h-100"></div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <style>-->
+    <!--            .dropdown-wrapper {-->
+    <!--                display: flex;-->
+    <!--                justify-content: start;-->
+    <!--                padding: 0px;-->
+    <!--            }-->
+    <!--            .dropdown-wrapper .custom-dropdown {-->
+    <!--                width: 270px;-->
+    <!--                padding: 5px;-->
+    <!--                border: 1px solid #3662FF;-->
+    <!--                border-radius: 6px;-->
+    <!--                background: #fff;-->
+    <!--                margin-right: 35px;-->
+    <!--            }-->
+    <!--            .o_custom_dropdown_snippet .subbuttons-wrapper button {-->
+    <!--                cursor: pointer;-->
+    <!--                font-family: "Poppins", serif;-->
+    <!--                background: #3662FF;-->
+    <!--                border-radius: 5px;-->
+    <!--                padding: 8px 30px;-->
+    <!--                border: none;-->
+    <!--                color: white;-->
+    <!--                font-size: 15px;-->
+    <!--                margin-right: 10px;-->
+    <!--                font-weight: 500;-->
+    <!--            }-->
+    <!--            .o_custom_dropdown_snippet .subbuttons-wrapper button.active {-->
+    <!--                background-color: #fff;-->
+    <!--                color: #0056b3;-->
+    <!--                border: 2px solid #0056b3;-->
+    <!--            }-->
+    <!--            .o_custom_dropdown_snippet .containers-wrapper > .option-container {-->
+    <!--                display: none;-->
+    <!--            }-->
+    <!--            .o_custom_dropdown_snippet .containers-wrapper > .option-container.active {-->
+    <!--                display: block !important;-->
+    <!--            }-->
+    <!--            body.editor_enable .o_custom_dropdown_snippet .containers-wrapper > .option-container {-->
+    <!--                display: none !important;-->
+    <!--            }-->
+    <!--            body.editor_enable .o_custom_dropdown_snippet .containers-wrapper > .option-container.active {-->
+    <!--                display: block !important;-->
+    <!--            }-->
+    <!--            .option-container, .option-container div {-->
+    <!--                height: 100% !important;-->
+    <!--            }-->
+    <!--            .option-container > div {-->
+    <!--                min-height: 500px !important;-->
+    <!--            }-->
+    <!--        </style>-->
+    <!--        <script>-->
+    <!--            if (!document.body.classList.contains('editor_enable')) {-->
+    <!--                document.addEventListener('DOMContentLoaded', () => {-->
+    <!--                    const dropdown = document.querySelector('.o_custom_dropdown_snippet .custom-dropdown');-->
+    <!--                    const subbuttonsWrapper = document.querySelector('.o_custom_dropdown_snippet .subbuttons-wrapper');-->
+    <!--                    const containersWrapper = document.querySelector('.o_custom_dropdown_snippet .containers-wrapper');-->
+    <!--                    if (dropdown &amp;&amp; subbuttonsWrapper &amp;&amp; containersWrapper) {-->
+    <!--                        const updateDisplay = () => {-->
+    <!--                            const selectedValue = dropdown.value;-->
+    <!--                            // Update subbutton visibility-->
+    <!--                            subbuttonsWrapper.querySelectorAll('button').forEach(button => {-->
+    <!--                                button.style.display = button.dataset.option === selectedValue ? '' : 'none';-->
+    <!--                                button.classList.remove('active');-->
+    <!--                            });-->
+    <!--                            // Set first subbutton as active if exists-->
+    <!--                            const subbuttons = subbuttonsWrapper.querySelectorAll(`button[data-option="${selectedValue}"]`);-->
+    <!--                            const firstSubbutton = subbuttons[0];-->
+    <!--                            if (firstSubbutton) {-->
+    <!--                                firstSubbutton.classList.add('active');-->
+    <!--                            }-->
+    <!--                            // Update container visibility-->
+    <!--                            containersWrapper.querySelectorAll(':scope > .option-container').forEach(container => {-->
+    <!--                                container.classList.remove('active');-->
+    <!--                            });-->
+    <!--                            containersWrapper.querySelectorAll(':scope > .option-container').forEach(container => {-->
+    <!--                                if (firstSubbutton &amp;&amp; container.dataset.option === selectedValue &amp;&amp; container.dataset.subbutton === firstSubbutton.dataset.subbutton) {-->
+    <!--                                    container.classList.add('active');-->
+    <!--                                    console.log(`Showing container for option: ${selectedValue}, subbutton: ${firstSubbutton.dataset.subbutton}, content: ${container.innerHTML}`);-->
+    <!--                                } else if (!firstSubbutton &amp;&amp; container.dataset.option === selectedValue &amp;&amp; !container.dataset.subbutton) {-->
+    <!--                                    container.classList.add('active');-->
+    <!--                                    console.log(`Showing container for option: ${selectedValue}, no subbutton, content: ${container.innerHTML}`);-->
+    <!--                                }-->
+    <!--                            });-->
+    <!--                        };-->
+    <!--                        dropdown.addEventListener('change', updateDisplay);-->
+    <!--                        subbuttonsWrapper.addEventListener('click', (ev) => {-->
+    <!--                            if (ev.target.tagName === 'BUTTON') {-->
+    <!--                                subbuttonsWrapper.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));-->
+    <!--                                ev.target.classList.add('active');-->
+    <!--                                const optionValue = ev.target.dataset.option;-->
+    <!--                                const subbuttonIndex = ev.target.dataset.subbutton;-->
+    <!--                                containersWrapper.querySelectorAll(':scope > .option-container').forEach(container => {-->
+    <!--                                    container.classList.remove('active');-->
+    <!--                                    if (container.dataset.option === optionValue &amp;&amp; container.dataset.subbutton === subbuttonIndex) {-->
+    <!--                                        container.classList.add('active');-->
+    <!--                                        console.log(`Showing container for option: ${optionValue}, subbutton: ${subbuttonIndex}, content: ${container.innerHTML}`);-->
+    <!--                                    }-->
+    <!--                                });-->
+    <!--                            }-->
+    <!--                        });-->
+    <!--                        updateDisplay(); // Initial call-->
+    <!--                    }-->
+    <!--                });-->
+    <!--            }-->
+    <!--        </script>-->
+    <!--    </section>-->
+    <!--</template>-->
+    <!--<template id="custom_dropdown_snippet_options" inherit_id="website.snippet_options">-->
+    <!--    <xpath expr="." position="inside">-->
+    <!--        <div data-js="DropdownOptions" string="Dropdown" data-selector=".custom-dropdown">-->
+    <!--            <we-row string="Add Option">-->
+    <!--                <we-button string="Add Option" class="add-option-btn"/>-->
+    <!--            </we-row>-->
+    <!--            <we-row string="Remove Option">-->
+    <!--                <we-button string="Remove Option" class="remove-option-btn"/>-->
+    <!--            </we-row>-->
+    <!--            <we-row string="Option Text">-->
+    <!--                <we-input string="Option Text" class="edit-option-input" placeholder="Enter option text"/>-->
+    <!--            </we-row>-->
+    <!--            <we-row string="Add Subbutton">-->
+    <!--                <we-button string="Add Subbutton" class="add-subbutton-btn"/>-->
+    <!--            </we-row>-->
+    <!--            <we-row string="Remove Subbutton">-->
+    <!--                <we-button string="Remove Subbutton" class="remove-subbutton-btn"/>-->
+    <!--            </we-row>-->
+    <!--            <we-row string="Select Subbutton">-->
+    <!--                <select class="subbutton-select form-select">-->
+    <!--                    <option value="-1">Select a subbutton</option>-->
+    <!--                </select>-->
+    <!--            </we-row>-->
+    <!--            <we-row string="Subbutton Text">-->
+    <!--                <we-input string="Subbutton Text" class="edit-subbutton-input" placeholder="Enter subbutton text"/>-->
+    <!--            </we-row>-->
+    <!--        </div>-->
+    <!--    </xpath>-->
+    <!--</template>-->
+
+
+    <template id="custom_dropdown_snippet" name="Live Demo">
+        <section class="o_custom_dropdown_snippet mt-md-4" data-oe-type="snippet" data-oe-name="Dropdown Snippet">
+            <div class="  dropdown-wrapper mx-4 ">
+                <select class="custom-dropdown form-select">
+                    <option value="option_1">Option 1</option>
+                </select>
+                <div class="subbuttons-wrapper">
+                    <!-- Subbuttons will be dynamically added here with data-option attribute -->
+                </div>
             </div>
-        </div>
-        <div style="height: 100%;min-height:500px; box-shadow: 0px 4px 11.5px 0px #00000080; border-radius: 8px;margin-top: 20px;" class="containers-wrapper container">
-            <!-- Containers for options and subbuttons will be added here -->
-            <div class="option-container h-100" data-option="option_1">
-                <div class="oe_structure h-100"></div>
+            <div style="height: 100%;min-height:500px; box-shadow: 0px 4px 11.5px 0px #00000080; border-radius: 8px;margin-top: 20px;background: #E5F5FF;"
+                 class="containers-wrapper mx-4">
+                <!-- Containers for options and subbuttons will be added here -->
+                <div class="option-container h-100" data-option="option_1">
+                    <div class="oe_structure h-100"></div>
+                </div>
             </div>
-        </div>
-        <style>
-            .dropdown-wrapper {
+            <style>
+                @media(max-width:768px){
+                .o_custom_dropdown_snippet .subbuttons-wrapper button {
+      margin-bottom: 10px;
+    padding: 0px 10px !important;
+    height: 45px !important;
+    width: 100px !important;
+    max-width: 100% !important;
+                }
+
+                .dropdown-wrapper .custom-dropdown {
+                height: 45px !important;
+  max-width: 116px !important;
+                }
+                }
+
+                .dropdown-wrapper {
                 display: flex;
                 justify-content: start;
                 padding: 0px;
-            }
-            .dropdown-wrapper .custom-dropdown {
+                }
+                .dropdown-wrapper .custom-dropdown {
                 width: 270px;
                 padding: 5px;
                 border: 1px solid #3662FF;
                 border-radius: 6px;
                 background: #fff;
                 margin-right: 35px;
-            }
-            .o_custom_dropdown_snippet .subbuttons-wrapper button {
+                max-height: 45px;
+                }
+                .o_custom_dropdown_snippet .subbuttons-wrapper button {
                 cursor: pointer;
                 font-family: "Poppins", serif;
                 background: #3662FF;
@@ -4813,117 +4927,135 @@ bottom: -5px;
                 font-size: 15px;
                 margin-right: 10px;
                 font-weight: 500;
-            }
-            .o_custom_dropdown_snippet .subbuttons-wrapper button.active {
+                }
+                .o_custom_dropdown_snippet .subbuttons-wrapper button.active {
                 background-color: #fff;
                 color: #0056b3;
                 border: 2px solid #0056b3;
-            }
-            .o_custom_dropdown_snippet .containers-wrapper > .option-container {
+                }
+                .o_custom_dropdown_snippet .containers-wrapper > .option-container {
                 display: none;
-            }
-            .o_custom_dropdown_snippet .containers-wrapper > .option-container.active {
+                }
+                .o_custom_dropdown_snippet .containers-wrapper > .option-container.active {
                 display: block !important;
-            }
-            body.editor_enable .o_custom_dropdown_snippet .containers-wrapper > .option-container {
+                }
+                body.editor_enable .o_custom_dropdown_snippet .containers-wrapper > .option-container {
                 display: none !important;
-            }
-            body.editor_enable .o_custom_dropdown_snippet .containers-wrapper > .option-container.active {
+                }
+                body.editor_enable .o_custom_dropdown_snippet .containers-wrapper > .option-container.active {
                 display: block !important;
-            }
-            .option-container, .option-container div {
+                }
+                .option-container, .option-container div {
                 height: 100% !important;
-            }
-            .option-container > div {
+                }
+                .option-container > div {
                 min-height: 500px !important;
-            }
-        </style>
-        <script>
-            if (!document.body.classList.contains('editor_enable')) {
+                }
+                 .edit-option-input > div {
+                  width: 100%;
+                }
+            </style>
+            <script>
+                if (!document.body.classList.contains('editor_enable')) {
                 document.addEventListener('DOMContentLoaded', () => {
-                    const dropdown = document.querySelector('.o_custom_dropdown_snippet .custom-dropdown');
-                    const subbuttonsWrapper = document.querySelector('.o_custom_dropdown_snippet .subbuttons-wrapper');
-                    const containersWrapper = document.querySelector('.o_custom_dropdown_snippet .containers-wrapper');
-                    if (dropdown &amp;&amp; subbuttonsWrapper &amp;&amp; containersWrapper) {
-                        const updateDisplay = () => {
-                            const selectedValue = dropdown.value;
-                            // Update subbutton visibility
-                            subbuttonsWrapper.querySelectorAll('button').forEach(button => {
-                                button.style.display = button.dataset.option === selectedValue ? '' : 'none';
-                                button.classList.remove('active');
-                            });
-                            // Set first subbutton as active if exists
-                            const subbuttons = subbuttonsWrapper.querySelectorAll(`button[data-option="${selectedValue}"]`);
-                            const firstSubbutton = subbuttons[0];
-                            if (firstSubbutton) {
-                                firstSubbutton.classList.add('active');
-                            }
-                            // Update container visibility
-                            containersWrapper.querySelectorAll(':scope > .option-container').forEach(container => {
-                                container.classList.remove('active');
-                            });
-                            containersWrapper.querySelectorAll(':scope > .option-container').forEach(container => {
-                                if (firstSubbutton &amp;&amp; container.dataset.option === selectedValue &amp;&amp; container.dataset.subbutton === firstSubbutton.dataset.subbutton) {
-                                    container.classList.add('active');
-                                    console.log(`Showing container for option: ${selectedValue}, subbutton: ${firstSubbutton.dataset.subbutton}, content: ${container.innerHTML}`);
-                                } else if (!firstSubbutton &amp;&amp; container.dataset.option === selectedValue &amp;&amp; !container.dataset.subbutton) {
-                                    container.classList.add('active');
-                                    console.log(`Showing container for option: ${selectedValue}, no subbutton, content: ${container.innerHTML}`);
-                                }
-                            });
-                        };
-                        dropdown.addEventListener('change', updateDisplay);
-                        subbuttonsWrapper.addEventListener('click', (ev) => {
-                            if (ev.target.tagName === 'BUTTON') {
-                                subbuttonsWrapper.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-                                ev.target.classList.add('active');
-                                const optionValue = ev.target.dataset.option;
-                                const subbuttonIndex = ev.target.dataset.subbutton;
-                                containersWrapper.querySelectorAll(':scope > .option-container').forEach(container => {
-                                    container.classList.remove('active');
-                                    if (container.dataset.option === optionValue &amp;&amp; container.dataset.subbutton === subbuttonIndex) {
-                                        container.classList.add('active');
-                                        console.log(`Showing container for option: ${optionValue}, subbutton: ${subbuttonIndex}, content: ${container.innerHTML}`);
-                                    }
-                                });
-                            }
-                        });
-                        updateDisplay(); // Initial call
-                    }
+                const dropdown = document.querySelector('.o_custom_dropdown_snippet .custom-dropdown');
+                const subbuttonsWrapper = document.querySelector('.o_custom_dropdown_snippet .subbuttons-wrapper');
+                const containersWrapper = document.querySelector('.o_custom_dropdown_snippet .containers-wrapper');
+                if (dropdown &amp;&amp; subbuttonsWrapper &amp;&amp; containersWrapper) {
+                const updateDisplay = () => {
+                const selectedValue = dropdown.value;
+                // Update subbutton visibility
+                subbuttonsWrapper.querySelectorAll('button').forEach(button => {
+                button.style.display = button.dataset.option === selectedValue ? '' : 'none';
+                button.classList.remove('active');
                 });
-            }
-        </script>
-    </section>
-</template>
+                // Set first subbutton as active if exists
+                const subbuttons = subbuttonsWrapper.querySelectorAll(`button[data-option="${selectedValue}"]`);
+                const firstSubbutton = subbuttons[0];
+                if (firstSubbutton) {
+                firstSubbutton.classList.add('active');
+                }
+                // Update container visibility
+                containersWrapper.querySelectorAll(':scope > .option-container').forEach(container => {
+                container.classList.remove('active');
+                });
+                containersWrapper.querySelectorAll(':scope > .option-container').forEach(container => {
+                if (firstSubbutton &amp;&amp; container.dataset.option === selectedValue &amp;&amp;
+                container.dataset.subbutton === firstSubbutton.dataset.subbutton) {
+                container.classList.add('active');
+                console.log(`Showing container for option: ${selectedValue}, subbutton:
+                ${firstSubbutton.dataset.subbutton}, content: ${container.innerHTML}`);
+                } else if (!firstSubbutton &amp;&amp; container.dataset.option === selectedValue &amp;&amp;
+                !container.dataset.subbutton) {
+                container.classList.add('active');
+                console.log(`Showing container for option: ${selectedValue}, no subbutton, content:
+                ${container.innerHTML}`);
+                }
+                });
+                };
+                dropdown.addEventListener('change', updateDisplay);
+                subbuttonsWrapper.addEventListener('click', (ev) => {
+                if (ev.target.tagName === 'BUTTON') {
+                subbuttonsWrapper.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                ev.target.classList.add('active');
+                const optionValue = ev.target.dataset.option;
+                const subbuttonIndex = ev.target.dataset.subbutton;
+                containersWrapper.querySelectorAll(':scope > .option-container').forEach(container => {
+                container.classList.remove('active');
+                if (container.dataset.option === optionValue &amp;&amp; container.dataset.subbutton === subbuttonIndex)
+                {
+                container.classList.add('active');
+                console.log(`Showing container for option: ${optionValue}, subbutton: ${subbuttonIndex}, content:
+                ${container.innerHTML}`);
+                }
+                });
+                }
+                });
+                updateDisplay(); // Initial call
+                }
+                });
+                }
+            </script>
+        </section>
+    </template>
+    <template id="custom_dropdown_snippet_options" inherit_id="website.snippet_options">
+        <xpath expr="." position="inside">
+            <style>
+                 .edit-option-input  div , .edit-subbutton-input div {
+          width: 100% !important;
+                }
 
-<template id="custom_dropdown_snippet_options" inherit_id="website.snippet_options">
-    <xpath expr="." position="inside">
-        <div data-js="DropdownOptions" string="Dropdown" data-selector=".custom-dropdown">
-            <we-row string="Add Option">
-                <we-button string="Add Option" class="add-option-btn"/>
-            </we-row>
-            <we-row string="Remove Option">
-                <we-button string="Remove Option" class="remove-option-btn"/>
-            </we-row>
-            <we-row string="Option Text">
-                <we-input string="Option Text" class="edit-option-input" placeholder="Enter option text"/>
-            </we-row>
-            <we-row string="Add Subbutton">
-                <we-button string="Add Subbutton" class="add-subbutton-btn"/>
-            </we-row>
-            <we-row string="Remove Subbutton">
-                <we-button string="Remove Subbutton" class="remove-subbutton-btn"/>
-            </we-row>
-            <we-row string="Select Subbutton">
-                <select class="subbutton-select form-select">
-                    <option value="-1">Select a subbutton</option>
-                </select>
-            </we-row>
-            <we-row string="Subbutton Text">
-                <we-input string="Subbutton Text" class="edit-subbutton-input" placeholder="Enter subbutton text"/>
-            </we-row>
-        </div>
-    </xpath>
-</template>
+            </style>
+
+            <div data-js="DropdownOptions" string="Dropdown" data-selector=".o_custom_dropdown_snippet">
+                <we-row string="Add Option">
+                    <we-button string="Add Option" class="add-option-btn"/>
+                </we-row>
+                <we-row string="Remove Option">
+                    <we-button string="Remove Option" class="remove-option-btn"/>
+                </we-row>
+<!--                <we-row string="Option Text">-->
+<!--               -->
+<!--                </we-row>-->
+                     <we-input string="Option Text" class="edit-option-input" placeholder="Enter option text"/>
+                <we-row string="Add Subbutton">
+                    <we-button string="Add Subbutton" class="add-subbutton-btn"/>
+                </we-row>
+                <we-row string="Remove Subbutton">
+                    <we-button string="Remove Subbutton" class="remove-subbutton-btn"/>
+                </we-row>
+<!--                <we-row string="Select Subbutton">-->
+<!--                    <select class="subbutton-select form-select">-->
+<!--                        <option value="-1">Select a subbutton</option>-->
+<!--                    </select>-->
+<!--                </we-row>-->
+<!--                <we-row string="Subbutton Text">-->
+<!--                    <we-input string="Subbutton Text" class="edit-subbutton-input" placeholder="Enter subbutton text"/>-->
+<!--                </we-row>-->
+                                    <we-input string="Subbutton Text" class="edit-subbutton-input" placeholder="Enter subbutton text"/>
+
+            </div>
+        </xpath>
+    </template>
 
 </odoo>

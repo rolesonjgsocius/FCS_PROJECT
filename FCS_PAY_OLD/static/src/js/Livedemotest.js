@@ -157,19 +157,72 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
                 console.warn('Edit subbutton input not found with selector:', this.selectors.editSubbuttonInput);
             }
 
-            this.$subbuttonsWrapper.off('click.dropdownOptions').on('click.dropdownOptions', 'button', (ev) => {
-                const optionValue = ev.currentTarget.dataset.option;
-                const $button = $(ev.currentTarget);
-                const subbuttons = this.$subbuttonsWrapper.find(`button[data-option="${optionValue}"]`);
-                const subbuttonIndex = subbuttons.index($button);
-                this.selectedSubbuttonIndex = subbuttonIndex;
-                console.debug('Subbutton clicked, optionValue:', optionValue, 'subbuttonIndex:', subbuttonIndex);
-                this.$subbuttonsWrapper.find('button').removeClass('active');
-                $(ev.currentTarget).addClass('active');
-                this._updateSubbuttonSelect();
-                this._updateSubbuttonInput();
-                this._updateContainerDisplay();
-            });
+
+
+this.$subbuttonsWrapper.off('click.dropdownOptions').on('click.dropdownOptions', 'button', (ev) => {
+    const optionValue = ev.currentTarget.dataset.option;
+    const $button = $(ev.currentTarget);
+    const subbuttons = this.$subbuttonsWrapper.find(`button[data-option="${optionValue}"]`);
+    const subbuttonIndex = subbuttons.index($button);
+
+    // IMPORTANT: set the selected option index to match the option of the clicked subbutton
+    const options = this.$dropdown && this.$dropdown[0] && this.$dropdown[0].options ? this.$dropdown[0].options : [];
+    let matchingOptionIndex = -1;
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].value === optionValue) {
+            matchingOptionIndex = i;
+            break;
+        }
+    }
+    if (matchingOptionIndex >= 0) {
+        this.selectedOptionIndex = matchingOptionIndex;
+        // reflect in actual <select> UI so user sees the change
+        if (this.$dropdown && this.$dropdown[0]) {
+            this.$dropdown[0].selectedIndex = this.selectedOptionIndex;
+        }
+    } else {
+        console.warn('Clicked subbutton option value not found in dropdown options:', optionValue);
+    }
+
+    this.selectedSubbuttonIndex = subbuttonIndex;
+    console.debug('Subbutton clicked, optionValue:', optionValue, 'subbuttonIndex:', subbuttonIndex, 'matchingOptionIndex:', matchingOptionIndex);
+
+    // toggle active class on subbuttons
+    this.$subbuttonsWrapper.find('button').removeClass('active');
+    $(ev.currentTarget).addClass('active');
+
+    // update UI controls and containers
+    this._updateSubbuttonSelect();
+    this._updateSubbuttonInput();
+    this._updateContainerDisplay();
+
+    // fallback: ensure the editor selects the active container so config buttons appear
+    try {
+        const $container = this.$containersWrapper.children(
+            `.option-container[data-option="${optionValue}"][data-subbutton="${subbuttonIndex}"]`
+        );
+        if ($container && $container.length) {
+            const $inner = $container.find('.oe_structure').first();
+            if ($inner && $inner.length) {
+                $inner.trigger('click');
+                console.debug('Triggered click on container inner .oe_structure to force editor selection.');
+            } else {
+                $container.trigger('click');
+                console.debug('Triggered click on container as fallback to force editor selection.');
+            }
+        } else {
+            // If there was no subbutton-specific container, try the no-subbutton container
+            const $fallback = this.$containersWrapper.children(`.option-container[data-option="${optionValue}"]:not([data-subbutton])`);
+            if ($fallback && $fallback.length) {
+                $fallback.trigger('click');
+                console.debug('Triggered click on fallback option container to force editor selection.');
+            }
+        }
+    } catch (err) {
+        console.warn('Error while trying to force editor selection on subbutton click:', err);
+    }
+});
+
         } catch (error) {
             console.error('Error in start method:', error);
             throw error;
@@ -289,20 +342,41 @@ snippetOptionRegistry['DropdownOptions'] = SnippetOptionWidget.extend({
         return $container;
     },
 
-    _addOption() {
-        const options = this.$dropdown[0].options;
-        const optionCount = options.length + 1;
-        const newOptionValue = uniqueId('opt_');
-        const newOption = document.createElement('option');
-        newOption.value = newOptionValue;
-        newOption.textContent = `Option ${optionCount}`;
-        this.$dropdown[0].appendChild(newOption);
-        this.selectedOptionIndex = options.length;
-        this.$dropdown[0].selectedIndex = this.selectedOptionIndex;
-        this._createContainer(newOptionValue);
-        console.debug('Added option:', newOption.textContent, 'value:', newOptionValue, 'at index:', this.selectedOptionIndex);
-        this.trigger_up('content_changed');
-    },
+//    _addOption() {
+//        const options = this.$dropdown[0].options;
+//        const optionCount = options.length + 1;
+//        const newOptionValue = uniqueId('opt_');
+//        const newOption = document.createElement('option');
+//        newOption.value = newOptionValue;
+//        newOption.textContent = `Option ${optionCount}`;
+//        this.$dropdown[0].appendChild(newOption);
+//        this.selectedOptionIndex = options.length;
+//        this.$dropdown[0].selectedIndex = this.selectedOptionIndex;
+//        this._createContainer(newOptionValue);
+//        console.debug('Added option:', newOption.textContent, 'value:', newOptionValue, 'at index:', this.selectedOptionIndex);
+//        this.trigger_up('content_changed');
+//    },
+
+_addOption() {
+    const options = this.$dropdown[0].options;
+    const optionCount = options.length + 1;
+    const newOptionValue = uniqueId('opt_');
+    const newOption = document.createElement('option');
+    newOption.value = newOptionValue;
+    newOption.textContent = `Option ${optionCount}`;
+    this.$dropdown[0].appendChild(newOption);
+
+    // options is a live collection; after appendChild, options.length is the new length.
+    // The newly added option's index is options.length - 1.
+    const newIndex = options.length - 1;
+    this.selectedOptionIndex = newIndex;
+    this.$dropdown[0].selectedIndex = this.selectedOptionIndex;
+
+    this._createContainer(newOptionValue);
+    console.debug('Added option:', newOption.textContent, 'value:', newOptionValue, 'at index:', this.selectedOptionIndex);
+    this.trigger_up('content_changed');
+},
+
 
     _removeOption() {
         const options = this.$dropdown[0].options;

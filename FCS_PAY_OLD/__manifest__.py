@@ -47,7 +47,8 @@
 
     "website.assets_wysiwyg": [
 
-        'FCS_PAY_OLD/static/src/js/Livedemotest.js'
+        'FCS_PAY_OLD/static/src/js/Livedemotest.js',
+        'FCS_PAY_OLD/static/src/css/home.css'
 
 ],
 
